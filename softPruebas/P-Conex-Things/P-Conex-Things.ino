@@ -5,16 +5,18 @@
 #include <WiFi.h>
 
 // WiFi access point
-#define WIFI_AP_NAME        "LaZona"
+#define WIFI_AP_NAME        "RTF"
 // WiFi password
-#define WIFI_PASSWORD       "12345678"
-#define TOKEN               "Temperatura18b20"
-#define THINGSBOARD_SERVER  "thingsboard.cloud"
+#define WIFI_PASSWORD       "desconectado"
+#define TOKEN               "ESP32SBC"
+#define THINGSBOARD_SERVER  "demo.thingsboard.io"
 #define SERIAL_DEBUG_BAUD 115200
+#define PIN_TURBIDEZ 25
 const int pinDatosDQ= 33;
 float TempI=0.0;
 float TempE=0.0;
 float difTemp=0.0;
+float turbidez=0.0;
 
 OneWire oneWireObjeto(pinDatosDQ);
 DallasTemperature sensorDS18B20(&oneWireObjeto);
@@ -59,13 +61,17 @@ void loop() {
   TempE=sensorDS18B20.getTempCByIndex(0);
   TempI=sensorDS18B20.getTempCByIndex(1);
   difTemp=TempE-TempI;
+  getTurbidez();
   Serial.println(TempI);
   Serial.println(TempE);
   Serial.println(difTemp);
+  Serial.println(turbidez);
   Serial.println("Sending data...");
   tb.sendTelemetryFloat("Temperatura Exterior", TempE);
   tb.sendTelemetryFloat("Temperatura Interior", TempI);
   tb.sendTelemetryFloat("Diferencia Temp", difTemp);
+  tb.sendTelemetryFloat("Turbidez", turbidez);
+  
 
   tb.loop();
   //Serial.println("Temperatura sensor 0:");
@@ -98,3 +104,11 @@ void reconnect() {
     Serial.println("Connected to AP");
   }
 }
+
+void getTurbidez(){
+    //analogSetSamples(8);
+    analogReadResolution(12);
+    int rawTurb = analogRead(PIN_TURBIDEZ);
+    turbidez=(-1120.4*(float)rawTurb*(float)rawTurb + 5742.3*(float)rawTurb-4352.9 );
+    
+  }
