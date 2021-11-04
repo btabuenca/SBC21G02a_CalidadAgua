@@ -1,6 +1,6 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
- 
+
 // Pin donde se conecta el bus 1-Wire
 const int pinDatosDQ = 33;
 
