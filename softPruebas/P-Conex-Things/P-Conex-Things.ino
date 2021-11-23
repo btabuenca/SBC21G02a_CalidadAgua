@@ -12,8 +12,9 @@
 #define SERIAL_DEBUG_BAUD 115200
 #define PIN_TURBIDEZ 32
 #define FILTER_LEN  15
+#define PERIODO 5
  
-uint32_t AN_Pot1_Buffer[FILTER_LEN] = {0};
+float AN_Pot1_Buffer[FILTER_LEN] = {0.0};
 int AN_Pot1_i = 0;
 int AN_Pot1_Filtered = 0;
 
@@ -46,6 +47,7 @@ void loop() {
   getTemperature();
   getTurbidez();
   sendData();
+  delay(PERIODO);
 }
 
 
@@ -79,10 +81,13 @@ void getTurbidez(){
     int rawTurb = analogRead(PIN_TURBIDEZ);
     
     //Serial.println(turbidez);
-    calTurb = getCalibrated(rawTurb)/1000.0;
+    calTurb = getCalibrated(rawTurb);
     AN_Pot1_Filtered=readADC_Avg(calTurb);
     //float vol=(calTurb*3.3)/4095;
-    turbidez= -2572.2*calTurb*calTurb + 8700.5*calTurb - 4352.9 ;
+    if(calTurb<1650)turbidez=3000;
+    else if(calTurb>2772)turbidez=0;
+    else turbidez= -2572.2*(calTurb/1000.0)*(calTurb/1000.0) + 8700.5*(calTurb/1000.0) - 4352.9 ;
+    Serial.println("-------------------------");
     Serial.println("Valor sin calibrar:");
     Serial.println(rawTurb);
     Serial.println("Valor Calibrado");
@@ -91,6 +96,7 @@ void getTurbidez(){
     Serial.println(AN_Pot1_Filtered);
     Serial.println("Valor Sensor");
     Serial.println(turbidez);
+    Serial.println("-------------------------");
     
   }
 
@@ -142,10 +148,10 @@ uint32_t getCalibrated(int ADC_Raw){
   return(esp_adc_cal_raw_to_voltage(ADC_Raw, &adc_chars));
   }
 
-  uint32_t readADC_Avg(int ADC_Raw)
+  float readADC_Avg(int ADC_Raw)
 {
   int i = 0;
-  uint32_t Sum = 0;
+  float Sum = 0.0;
   
   AN_Pot1_Buffer[AN_Pot1_i++] = ADC_Raw;
   if(AN_Pot1_i == FILTER_LEN)
