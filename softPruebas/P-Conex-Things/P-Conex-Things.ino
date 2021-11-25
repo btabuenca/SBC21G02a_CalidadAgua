@@ -11,10 +11,11 @@
 #define THINGSBOARD_SERVER  "demo.thingsboard.io"
 #define SERIAL_DEBUG_BAUD 115200
 #define PIN_TURBIDEZ 32
-#define FILTER_LEN  15
-#define PERIODO 5
+#define PERIODO 10
+#define CALVTURB 0.3
+
+#define uS_TO_S_FACTOR 1000000ULL  
  
-float AN_Pot1_Buffer[FILTER_LEN] = {0.0};
 int AN_Pot1_i = 0;
 int AN_Pot1_Filtered = 0;
 
@@ -25,6 +26,7 @@ float TempE=0.0;
 float difTemp=0.0;
 float calTurb=0.0;
 float turbidez=0.0;
+bool sent=false;
 
 
 OneWire oneWireObjeto(pinDatosDQ);
@@ -42,6 +44,7 @@ void setup() {
 
 
 void loop() {
+  sent=false;
   delay(1000);
   wakeup();
   initConection();
@@ -49,6 +52,8 @@ void loop() {
   getTemperature();
   getTurbidez();
   sendData();
+  delay(5000);
+  while(!sent){}
   sleep(PERIODO);
   
   
@@ -80,31 +85,21 @@ void reconnect() {
 }
 
 void getTurbidez(){
-    //analogSetSamples(8);
     analogReadResolution(12);
-    int rawTurb = analogRead(PIN_TURBIDEZ);
     
-    //Serial.println(turbidez);
-    calTurb = getCalibrated(rawTurb);
-    AN_Pot1_Filtered=readADC_Avg(calTurb);
-    float vol=(calTurb/1000.0);
-    if(calTurb<1650)turbidez=3000;
-    else if(calTurb>=2650)turbidez=0;
-    //else turbidez= -2572.2*(calTurb/1000.0)*(calTurb/1000.0) + 8700.5*(calTurb/1000.0) - 4352.9 ;
-    //else turbidez= - 2722.2*(calTurb/1000.0)*(calTurb/1000.0) + 8700.5*(calTurb/1000.0) - 4352.9 ;
+    calTurb = readADC_Avg(20,PIN_TURBIDEZ);
+    float vol=calTurb/1000.0;
+    if(calTurb<1650-(CALVTURB*1000))turbidez=3000;
+    else if(calTurb>=2780-(CALVTURB*1000))turbidez=0;   //Cambiar valor si recibimos negativos
+    else turbidez= - 2572.2*((vol+CALVTURB)*(vol+CALVTURB)) + 8700.5*(vol+CALVTURB) - 4352.9 ;
+    
 
-    else turbidez= - 2572.2*((vol+150)*(vol+150)) + 8700.5*(vol) - 4352.9 ;
-    Serial.println("-------------------------");
-    Serial.println("Valor sin calibrar:");
-    Serial.println(rawTurb);
-    Serial.println("Valor Calibrado");
+    Serial.println("Valor Voltaje Turb Calibrado");
     Serial.println(calTurb);
-    Serial.println("Valor Calibrado Multi");
-    Serial.println(AN_Pot1_Filtered);
-    Serial.println("Valor Sensor");
+
+    Serial.println("Valor Turbidez");
     Serial.println(turbidez);
-    Serial.println("-------------------------");
-    
+
   }
 
 void getTemperature(){
@@ -143,9 +138,10 @@ void sendData(){
   tb.sendTelemetryFloat("Temperatura Exterior", TempE);
   tb.sendTelemetryFloat("Temperatura Interior", TempI);
   tb.sendTelemetryFloat("Diferencia Temp", difTemp);
-  tb.sendTelemetryFloat("Turbidez", calTurb);
+  tb.sendTelemetryFloat("Turbidez", turbidez);
   
   tb.loop(); //Esta instrucción ha de ser la última del método
+  sent=true;
   }
 
 uint32_t getCalibrated(int ADC_Raw){
@@ -155,25 +151,25 @@ uint32_t getCalibrated(int ADC_Raw){
   return(esp_adc_cal_raw_to_voltage(ADC_Raw, &adc_chars));
   }
 
-  float readADC_Avg(int ADC_Raw)
+  float readADC_Avg(int samples, int port) //Cambiar para que en lugar de tomar media de ultimas 12 lecturas, haga 12 lecturas consecutivas y de media
 {
   int i = 0;
   float Sum = 0.0;
+  float AN_Pot1_Buffer[samples] = {0.0};
+  int raw=0;
+
   
-  AN_Pot1_Buffer[AN_Pot1_i++] = ADC_Raw;
-  if(AN_Pot1_i == FILTER_LEN)
+  for(i=0; i<samples; i++)
   {
-    AN_Pot1_i = 0;
+    raw=analogRead(port);
+    Sum += getCalibrated(raw);
   }
-  for(i=0; i<FILTER_LEN; i++)
-  {
-    Sum += AN_Pot1_Buffer[i];
-  }
-  return (Sum/FILTER_LEN);
+  return (Sum/samples);
 }
 
 void sleep(int secs){
-    esp_sleep_enable_timer_wakeup(secs * 1000);
+    esp_sleep_enable_timer_wakeup(secs *uS_TO_S_FACTOR);
+    Serial.println("Going to sleep now");
     Serial.flush(); 
     esp_deep_sleep_start();
   }
