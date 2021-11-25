@@ -11,8 +11,13 @@
 #define THINGSBOARD_SERVER  "demo.thingsboard.io"
 #define SERIAL_DEBUG_BAUD 115200
 #define PIN_TURBIDEZ 32
+#define PIN_EC 35
 #define PERIODO 10
-#define CALVTURB 0.3
+
+#define CALVTURB 0
+#define KHIGHEC 1
+#define KLOWEC 1
+
 
 #define uS_TO_S_FACTOR 1000000ULL  
  
@@ -26,7 +31,7 @@ float TempE=0.0;
 float difTemp=0.0;
 float calTurb=0.0;
 float turbidez=0.0;
-bool sent=false;
+float EC = 0.0;
 
 
 OneWire oneWireObjeto(pinDatosDQ);
@@ -44,16 +49,15 @@ void setup() {
 
 
 void loop() {
-  sent=false;
   delay(1000);
   wakeup();
   initConection();
   Serial.println("Mandando comandos a los sensores");
   getTemperature();
   getTurbidez();
+  getEC();
   sendData();
   delay(5000);
-  while(!sent){}
   sleep(PERIODO);
   
   
@@ -83,6 +87,25 @@ void reconnect() {
     Serial.println("Conectado al AP");
   }
 }
+
+void getEC(){
+  analogReadResolution(12);
+  float voltEC = readADC_Avg(20,PIN_EC);
+  EC=readEC(voltEC,TempI);
+  Serial.println("Electroconductividad");
+  Serial.println(EC);
+  }
+
+float readEC(float voltage, float temperature){
+      float kValue=1.0;
+      float value=0.0;
+      float rawEC=1000*voltage/820.0/200.0;
+      if (rawEC>2.5)kValue=KHIGHEC;
+      else if (rawEC<2.0)kValue=KLOWEC;
+      value=rawEC*kValue;
+      value = value / (1.0+0.0185*(temperature-25.0));
+      return value;
+  }
 
 void getTurbidez(){
     analogReadResolution(12);
@@ -141,7 +164,6 @@ void sendData(){
   tb.sendTelemetryFloat("Turbidez", turbidez);
   
   tb.loop(); //Esta instrucción ha de ser la última del método
-  sent=true;
   }
 
 uint32_t getCalibrated(int ADC_Raw){
