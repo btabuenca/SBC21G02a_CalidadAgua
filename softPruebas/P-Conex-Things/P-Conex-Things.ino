@@ -42,12 +42,16 @@ void setup() {
 
 
 void loop() {
+  delay(1000);
+  wakeup();
   initConection();
   Serial.println("Mandando comandos a los sensores");
   getTemperature();
   getTurbidez();
   sendData();
-  delay(PERIODO);
+  sleep(PERIODO);
+  
+  
 }
 
 
@@ -83,10 +87,13 @@ void getTurbidez(){
     //Serial.println(turbidez);
     calTurb = getCalibrated(rawTurb);
     AN_Pot1_Filtered=readADC_Avg(calTurb);
-    //float vol=(calTurb*3.3)/4095;
+    float vol=(calTurb/1000.0);
     if(calTurb<1650)turbidez=3000;
-    else if(calTurb>2772)turbidez=0;
-    else turbidez= -2572.2*(calTurb/1000.0)*(calTurb/1000.0) + 8700.5*(calTurb/1000.0) - 4352.9 ;
+    else if(calTurb>=2650)turbidez=0;
+    //else turbidez= -2572.2*(calTurb/1000.0)*(calTurb/1000.0) + 8700.5*(calTurb/1000.0) - 4352.9 ;
+    //else turbidez= - 2722.2*(calTurb/1000.0)*(calTurb/1000.0) + 8700.5*(calTurb/1000.0) - 4352.9 ;
+
+    else turbidez= - 2572.2*((vol+150)*(vol+150)) + 8700.5*(vol) - 4352.9 ;
     Serial.println("-------------------------");
     Serial.println("Valor sin calibrar:");
     Serial.println(rawTurb);
@@ -163,4 +170,24 @@ uint32_t getCalibrated(int ADC_Raw){
     Sum += AN_Pot1_Buffer[i];
   }
   return (Sum/FILTER_LEN);
+}
+
+void sleep(int secs){
+    esp_sleep_enable_timer_wakeup(secs * 1000);
+    Serial.flush(); 
+    esp_deep_sleep_start();
+  }
+
+void wakeup(){
+   esp_sleep_wakeup_cause_t wakeup_reason;
+   wakeup_reason = esp_sleep_get_wakeup_cause();
+   switch(wakeup_reason)
+  {
+    //case ESP_SLEEP_WAKEUP_EXT0 : Serial.println("Wakeup caused by external signal using RTC_IO"); break;
+    //case ESP_SLEEP_WAKEUP_EXT1 : Serial.println("Wakeup caused by external signal using RTC_CNTL"); break;
+    case ESP_SLEEP_WAKEUP_TIMER : Serial.println("Wakeup caused by timer"); break;
+    //case ESP_SLEEP_WAKEUP_TOUCHPAD : Serial.println("Wakeup caused by touchpad"); break;
+    //case ESP_SLEEP_WAKEUP_ULP : Serial.println("Wakeup caused by ULP program"); break;
+    default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
+  }
 }
