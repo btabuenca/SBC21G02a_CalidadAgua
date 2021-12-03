@@ -1,14 +1,17 @@
-
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <ThingsBoard.h>
 #include <WiFi.h>
 #include "esp_adc_cal.h"
+#include <Wire.h>
+#include <Adafruit_ADS1X15.h>
+#include <ElegantOTA.h>
+#include <WebServer.h>
 
 #define WIFI_AP_NAME        "LaZona"
 #define WIFI_PASSWORD       "12345678"
-#define TOKEN               "ESP32SBC"
-#define THINGSBOARD_SERVER  "demo.thingsboard.io"
+#define TOKEN               "ESP32_BeWater_SBC"
+#define THINGSBOARD_SERVER  "thingsboard.cloud.io"
 #define SERIAL_DEBUG_BAUD 115200
 #define PIN_TURBIDEZ 32
 #define PIN_EC 35
@@ -30,14 +33,30 @@ float TempI=0.0;
 float TempE=0.0;
 float difTemp=0.0;
 float calTurb=0.0;
-float turbidez=0.0;
+int turbidez=0;
 float EC = 0.0;
+float tds = 0.0;
+float volts0, volts1, volts2, volts3;
 
+int16_t adc0, adc1, adc2, adc3;
 
+//OTA
+const char* ssid = "LaZona";
+const char* password = "12345678";
+int ndor = 0;
+
+WebServer server(80);
+
+//Sensors
 OneWire oneWireObjeto(pinDatosDQ);
 DallasTemperature sensorDS18B20(&oneWireObjeto);
 WiFiClient espClient;
 ThingsBoard tb(espClient);
+
+//ADC
+Adafruit_ADS1115 ads;
+//float Voltage = 0.0;
+
 
 
 void setup() {
@@ -45,24 +64,31 @@ void setup() {
    WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
    InitWiFi();
    sensorDS18B20.begin();
+   ads.begin();
 }
 
 
 void loop() {
-  delay(1000);
+  delay(1000); 
   wakeup();
   initConection();
+  if(ndor==0){
+    server.handleClient();
+    InitOTA();
+    ndor=10;
+  }
+  else ndor--;
   Serial.println("Mandando comandos a los sensores");
   getTemperature();
   getTurbidez();
   getEC();
+  getTDS();
   sendData();
   delay(5000);
   sleep(PERIODO);
   
   
 }
-
 
 
 void InitWiFi()
@@ -88,10 +114,23 @@ void reconnect() {
   }
 }
 
+void InitOTA (){
+  
+   server.on("/", []() {
+    server.send(200, "text/plain", "Servidor OTA de BeWater");
+  });
+
+  ElegantOTA.begin(&server);    // Start ElegantOTA
+  server.begin();
+  Serial.println("HTTP server started");
+
+}
+
+  
 void getEC(){
-  analogReadResolution(12);
-  float voltEC = readADC_Avg(20,PIN_EC);
-  EC=readEC(voltEC,TempI);
+  adc2 = ads.readADC_SingleEnded(2);
+  volts2=ads.computeVolts(adc2);
+  EC=readEC(volts2,TempI);
   Serial.println("Electroconductividad");
   Serial.println(EC);
   }
@@ -108,20 +147,29 @@ float readEC(float voltage, float temperature){
   }
 
 void getTurbidez(){
-    analogReadResolution(12);
     
-    calTurb = readADC_Avg(20,PIN_TURBIDEZ);
-    float vol=calTurb/1000.0;
-    if(calTurb<1650-(CALVTURB*1000))turbidez=3000;
-    else if(calTurb>=2780-(CALVTURB*1000))turbidez=0;   //Cambiar valor si recibimos negativos
-    else turbidez= - 2572.2*((vol+CALVTURB)*(vol+CALVTURB)) + 8700.5*(vol+CALVTURB) - 4352.9 ;
+    adc3 = ads.readADC_SingleEnded(3);
+    volts3=ads.computeVolts(adc3)*1000;
+    if(volts3<2500)turbidez=3000;
+    else if(volts3>=4200)turbidez=0;   //Cambiar valor si recibimos negativos
+    else turbidez= - 1120.4*((volts3/1000)*(volts3/1000)) + 5742.3*(volts3/1000) - 4352.9 ;
     
-
-    Serial.println("Valor Voltaje Turb Calibrado");
-    Serial.println(calTurb);
-
     Serial.println("Valor Turbidez");
     Serial.println(turbidez);
+
+  }
+
+void getTDS(){
+    float compensationCoefficient = 1.0 + 0.02 * (TempI - 25.0);
+    
+    adc0 = ads.readADC_SingleEnded(0);
+    volts0=ads.computeVolts(adc0);
+
+    float compensationVolatge = volts0 / compensationCoefficient; //temperature compensation
+    tds = (133.42 * compensationVolatge * compensationVolatge * compensationVolatge - 255.86 * compensationVolatge * compensationVolatge + 857.39 * compensationVolatge) * 0.5; 
+    
+    Serial.println("Valor TDS");
+    Serial.println(tds);
 
   }
 
@@ -162,6 +210,8 @@ void sendData(){
   tb.sendTelemetryFloat("Temperatura Interior", TempI);
   tb.sendTelemetryFloat("Diferencia Temp", difTemp);
   tb.sendTelemetryFloat("Turbidez", turbidez);
+    tb.sendTelemetryFloat("TDS", tds);
+
   
   tb.loop(); //Esta instrucción ha de ser la última del método
   }
