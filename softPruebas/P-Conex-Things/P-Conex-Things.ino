@@ -2,11 +2,14 @@
 #include <DallasTemperature.h>
 #include <ThingsBoard.h>
 #include <WiFi.h>
-#include "esp_adc_cal.h"
 #include <Wire.h>
 #include <Adafruit_ADS1X15.h>
 #include <ElegantOTA.h>
 #include <WebServer.h>
+//#include <Flag.h>
+
+
+
 
 #define WIFI_AP_NAME        "LaZona"
 #define WIFI_PASSWORD       "12345678"
@@ -16,6 +19,7 @@
 #define PIN_TURBIDEZ 32
 #define PIN_EC 35
 #define PERIODO 10
+#define SEGUNDOSOTA 300
 
 #define CALVTURB 0
 #define KHIGHEC 1
@@ -41,9 +45,13 @@ float volts0, volts1, volts2, volts3;
 int16_t adc0, adc1, adc2, adc3;
 
 //OTA
-const char* ssid = "LaZona";
-const char* password = "12345678";
+const char* ssid = WIFI_AP_NAME;
+const char* password = WIFI_PASSWORD;
 int ndor = 0;
+int secsOTA=SEGUNDOSOTA;
+
+
+bool otaIF;
 
 WebServer server(80);
 
@@ -61,7 +69,7 @@ Adafruit_ADS1115 ads;
 
 void setup() {
    Serial.begin(SERIAL_DEBUG_BAUD);
-   WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
+  // WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
    InitWiFi();
    sensorDS18B20.begin();
    ads.begin();
@@ -73,9 +81,14 @@ void loop() {
   wakeup();
   initConection();
   if(ndor==0){
+    Serial.println("---------------------------");
+    Serial.println("OTA ACTIVADA EN");
+    Serial.println(WiFi.localIP());
+    Serial.println("---------------------------");
+    otaIF=true;
     server.handleClient();
     InitOTA();
-    ndor=10;
+    ndor=212;  //212 ciclos para ser lanzado cada hora
   }
   else ndor--;
   Serial.println("Mandando comandos a los sensores");
@@ -84,6 +97,18 @@ void loop() {
   getEC();
   getTDS();
   sendData();
+  if(otaIF){
+    while(secsOTA>0){
+        getTemperature();
+        getTurbidez();
+        getEC();
+        getTDS();
+        sendData();
+        secsOTA--;
+        delay(1000);
+      }
+     otaIF=false;
+    }
   delay(5000);
   sleep(PERIODO);
   
@@ -100,6 +125,8 @@ void InitWiFi()
     Serial.print(".");
   }
   Serial.println("Conectado al AP");
+  Serial.print("Direccion IP: ");
+  Serial.println(WiFi.localIP());
 }
 
 void reconnect() {
@@ -210,34 +237,11 @@ void sendData(){
   tb.sendTelemetryFloat("Temperatura Interior", TempI);
   tb.sendTelemetryFloat("Diferencia Temp", difTemp);
   tb.sendTelemetryFloat("Turbidez", turbidez);
-    tb.sendTelemetryFloat("TDS", tds);
-
+  tb.sendTelemetryFloat("TDS", tds);
   
   tb.loop(); //Esta instrucción ha de ser la última del método
   }
 
-uint32_t getCalibrated(int ADC_Raw){
-  esp_adc_cal_characteristics_t adc_chars;
-  
-  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 1000, &adc_chars);
-  return(esp_adc_cal_raw_to_voltage(ADC_Raw, &adc_chars));
-  }
-
-  float readADC_Avg(int samples, int port) //Cambiar para que en lugar de tomar media de ultimas 12 lecturas, haga 12 lecturas consecutivas y de media
-{
-  int i = 0;
-  float Sum = 0.0;
-  float AN_Pot1_Buffer[samples] = {0.0};
-  int raw=0;
-
-  
-  for(i=0; i<samples; i++)
-  {
-    raw=analogRead(port);
-    Sum += getCalibrated(raw);
-  }
-  return (Sum/samples);
-}
 
 void sleep(int secs){
     esp_sleep_enable_timer_wakeup(secs *uS_TO_S_FACTOR);
