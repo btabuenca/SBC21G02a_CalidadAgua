@@ -6,27 +6,24 @@
 #include <Adafruit_ADS1X15.h>
 #include <ElegantOTA.h>
 #include <WebServer.h>
-//#include <Flag.h>
-
-
+#include <LiquidCrystal_I2C.h>
 
 
 #define WIFI_AP_NAME        "LaZona"
 #define WIFI_PASSWORD       "12345678"
-#define TOKEN               "ESP32_BeWater_SBC"
+#define TOKEN               "ESP32_BeWater"
 #define THINGSBOARD_SERVER  "thingsboard.cloud.io"
 #define SERIAL_DEBUG_BAUD 115200
 #define PIN_TURBIDEZ 32
-#define PIN_EC 35
+#define PIN_OTA 34
 #define PERIODO 10
-#define SEGUNDOSOTA 300
-
+#define SEGUNDOSOTA 300 //Segundos que permanecerá el dispositivo disponible para OTA
 #define CALVTURB 0
-#define KHIGHEC 1
-#define KLOWEC 1
-
-
+#define KHIGHEC 0.9
+#define KLOWEC 1.1
 #define uS_TO_S_FACTOR 1000000ULL  
+
+
  
 int AN_Pot1_i = 0;
 int AN_Pot1_Filtered = 0;
@@ -49,9 +46,14 @@ const char* ssid = WIFI_AP_NAME;
 const char* password = WIFI_PASSWORD;
 int ndor = 0;
 int secsOTA=SEGUNDOSOTA;
-
-
 bool otaIF;
+
+
+//LCD 
+int lcdColumns = 16;
+int lcdRows = 2;
+LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);  
+
 
 WebServer server(80);
 
@@ -61,26 +63,32 @@ DallasTemperature sensorDS18B20(&oneWireObjeto);
 WiFiClient espClient;
 ThingsBoard tb(espClient);
 
+
 //ADC
 Adafruit_ADS1115 ads;
-//float Voltage = 0.0;
 
 
 
 void setup() {
    Serial.begin(SERIAL_DEBUG_BAUD);
-  // WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
+   WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
    InitWiFi();
    sensorDS18B20.begin();
    ads.begin();
+   pinMode(PIN_OTA, INPUT);
+   lcd.init();                      
+   lcd.backlight();
 }
 
 
 void loop() {
-  delay(1000); 
+  welcomeMsg(); 
   wakeup();
   initConection();
-  if(ndor==0){
+  if(digitalRead(PIN_OTA) == HIGH){
+    ndor=212;
+    }
+  if(ndor==212){      //212 ciclos para ser lanzado cada hora
     Serial.println("---------------------------");
     Serial.println("OTA ACTIVADA EN");
     Serial.println(WiFi.localIP());
@@ -88,9 +96,9 @@ void loop() {
     otaIF=true;
     server.handleClient();
     InitOTA();
-    ndor=212;  //212 ciclos para ser lanzado cada hora
+    ndor=0;  
   }
-  else ndor--;
+  else ndor++;
   Serial.println("Mandando comandos a los sensores");
   getTemperature();
   getTurbidez();
@@ -111,8 +119,6 @@ void loop() {
     }
   delay(5000);
   sleep(PERIODO);
-  
-  
 }
 
 
@@ -156,17 +162,19 @@ void InitOTA (){
   
 void getEC(){
   adc2 = ads.readADC_SingleEnded(2);
-  volts2=ads.computeVolts(adc2);
+  volts2=ads.computeVolts(adc2)*1000.0;
   EC=readEC(volts2,TempI);
   Serial.println("Electroconductividad");
   Serial.println(EC);
+  //Serial.println(" | ");
+  //Serial.println(volts2);
   }
 
 float readEC(float voltage, float temperature){
       float kValue=1.0;
       float value=0.0;
-      float rawEC=1000*voltage/820.0/200.0;
-      if (rawEC>2.5)kValue=KHIGHEC;
+      float rawEC=(1000.0*voltage/820.0)/200.0;
+      if (voltage>2.5)kValue=KHIGHEC;
       else if (rawEC<2.0)kValue=KLOWEC;
       value=rawEC*kValue;
       value = value / (1.0+0.0185*(temperature-25.0));
@@ -219,29 +227,33 @@ void initConection(){
     return;
    }
    if (!tb.connected()) {
-    Serial.print("Connecting to: ");
+    Serial.print("Conectando a: ");
     Serial.print(THINGSBOARD_SERVER);
     Serial.print(" with token ");
     Serial.println(TOKEN);
     if (!tb.connect(THINGSBOARD_SERVER, TOKEN)) {
-      Serial.println("Failed to connect");
+      Serial.println("Fallo en conexión a Thingsboard");
       return;
     }
+    else{
+       Serial.print("Conexión a Thingsboard con éxito ");
+      }
   }
 }
 
 void sendData(){
   //Manda a Thingsboard los datos obtenidos
   Serial.println("Sending data...");
-  tb.sendTelemetryFloat("Temperatura Exterior", TempE);
-  tb.sendTelemetryFloat("Temperatura Interior", TempI);
-  tb.sendTelemetryFloat("Diferencia Temp", difTemp);
+  tb.sendTelemetryFloat("TemperaturaExterior", TempE);
+  tb.sendTelemetryFloat("TemperaturaInterior", TempI);
+  tb.sendTelemetryFloat("DiferenciaTemp", difTemp);
   tb.sendTelemetryFloat("Turbidez", turbidez);
   tb.sendTelemetryFloat("TDS", tds);
+  tb.sendTelemetryFloat("Electroconductividad", EC);
+
   
   tb.loop(); //Esta instrucción ha de ser la última del método
   }
-
 
 void sleep(int secs){
     esp_sleep_enable_timer_wakeup(secs *uS_TO_S_FACTOR);
@@ -263,3 +275,50 @@ void wakeup(){
     default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
   }
 }
+
+void welcomeMsg(){
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("beWater");
+  lcd.setCursor(0, 1);
+  lcd.print("quality monitor");
+  delay(3000);
+  lcd.clear();
+  }
+
+ void infoMsg(){
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Temp. Int: ");
+  lcd.setCursor(11,0);
+  lcd.print(TempI);
+  lcd.setCursor(0,1);
+  lcd.print("Temp. Ext: ");
+  lcd.setCursor(11,1);
+  lcd.print(TempE);
+  
+  delay(5000);
+  
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("TDS: ");
+  lcd.setCursor(5,0);
+  lcd.print(tds);
+  lcd.setCursor(0,1);
+  lcd.print("EC: ");
+  lcd.setCursor(4,1);
+  lcd.print(EC);
+  
+  delay(5000);
+
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Turbidez: ");
+  lcd.setCursor(5,0);
+  lcd.print(tds);
+  lcd.setCursor(0,1);
+  lcd.print("EC: ");
+  lcd.setCursor(4,1);
+  lcd.print(EC);
+
+  }
