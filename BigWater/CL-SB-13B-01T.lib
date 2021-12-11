@@ -1,0 +1,32 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# CL-SB-13B-01T
+#
+DEF CL-SB-13B-01T S 0 40 Y N 1 L N
+F0 "S" -100 300 50 H V L BNN
+F1 "CL-SB-13B-01T" -100 -300 50 H V L BNN
+F2 "SW_CL-SB-13B-01T" 0 0 50 H I L BNN
+F3 "" 0 0 50 H I L BNN
+F4 "Nidec" 0 0 50 H I L BNN "MANUFACTURER"
+F5 "5.50mm" 0 0 50 H I L BNN "MAXIMUM_PACKAGE_HEIGHT"
+F6 "N/A" 0 0 50 H I L BNN "PARTREV"
+F7 "Manufacturer Recommendations" 0 0 50 H I L BNN "STANDARD"
+DRAW
+P 2 0 0 6 -200 0 100 20 N
+C 100 200 13 0 0 6 N
+C 100 0 13 0 0 6 N
+P 2 0 0 6 200 0 115 0 N
+P 2 0 0 6 200 200 115 200 N
+C 100 -200 13 0 0 6 N
+P 2 0 0 6 200 -200 115 -200 N
+X ~ 3 -300 0 100 R 40 40 0 0 P 
+X ~ 1 300 200 100 L 40 40 0 0 P 
+X ~ 2 300 0 100 L 40 40 0 0 P 
+X ~ 4 300 -200 100 L 40 40 0 0 P 
+ENDDRAW
+ENDDEF
+#
+# End Library
