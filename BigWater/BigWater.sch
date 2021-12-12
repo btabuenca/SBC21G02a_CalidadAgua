@@ -13,8 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text GLabel 4700 4550 0    50   Output ~ 0
-5V
 Text GLabel 4700 4050 0    50   Input ~ 0
 GND
 Text GLabel 6250 2950 2    50   Input ~ 0
@@ -27,7 +25,7 @@ U 1 1 61AAD93F
 P 6650 1750
 F 0 "JTDS1" H 6730 1792 50  0000 L CNN
 F 1 "Conn_01x03" H 6730 1701 50  0000 L CNN
-F 2 "" H 6650 1750 50  0001 C CNN
+F 2 "Connector_JST:JST_EH_B3B-EH-A_1x03_P2.50mm_Vertical" H 6650 1750 50  0001 C CNN
 F 3 "~" H 6650 1750 50  0001 C CNN
 	1    6650 1750
 	1    0    0    -1  
@@ -38,21 +36,21 @@ U 1 1 61AADF55
 P 6650 2350
 F 0 "JEC1" H 6730 2392 50  0000 L CNN
 F 1 "Conn_01x03" H 6730 2301 50  0000 L CNN
-F 2 "" H 6650 2350 50  0001 C CNN
+F 2 "Connector_JST:JST_EH_B3B-EH-A_1x03_P2.50mm_Vertical" H 6650 2350 50  0001 C CNN
 F 3 "~" H 6650 2350 50  0001 C CNN
 	1    6650 2350
 	1    0    0    -1  
 $EndComp
 Text GLabel 6450 1650 0    50   Input ~ 0
-5V
+GND
 Text GLabel 6450 1850 0    50   Input ~ 0
 TDS
 Text GLabel 6450 1750 0    50   Input ~ 0
-GND
-Text GLabel 6450 2250 0    50   Input ~ 0
 5V
-Text GLabel 6450 2350 0    50   Input ~ 0
+Text GLabel 6450 2250 0    50   Input ~ 0
 GND
+Text GLabel 6450 2350 0    50   Input ~ 0
+5V
 Text GLabel 6450 2450 0    50   Input ~ 0
 EC
 $Comp
@@ -61,41 +59,41 @@ U 1 1 61ABD13A
 P 7800 2300
 F 0 "JPH1" H 7880 2342 50  0000 L CNN
 F 1 "Conn_01x03" H 7880 2251 50  0000 L CNN
-F 2 "" H 7800 2300 50  0001 C CNN
+F 2 "Connector_JST:JST_EH_B3B-EH-A_1x03_P2.50mm_Vertical" H 7800 2300 50  0001 C CNN
 F 3 "~" H 7800 2300 50  0001 C CNN
 	1    7800 2300
 	1    0    0    -1  
 $EndComp
 Text GLabel 7600 2200 0    50   Input ~ 0
-5V
+GND
 Text GLabel 7600 2400 0    50   Input ~ 0
 pH
 Text GLabel 7600 2300 0    50   Input ~ 0
-GND
+5V
 $Comp
 L Connector_Generic:Conn_01x03 JTURB1
 U 1 1 61AC9A16
 P 7800 1800
 F 0 "JTURB1" H 7880 1842 50  0000 L CNN
 F 1 "Conn_01x03" H 7880 1751 50  0000 L CNN
-F 2 "" H 7800 1800 50  0001 C CNN
+F 2 "Connector_JST:JST_EH_B3B-EH-A_1x03_P2.50mm_Vertical" H 7800 1800 50  0001 C CNN
 F 3 "~" H 7800 1800 50  0001 C CNN
 	1    7800 1800
 	1    0    0    -1  
 $EndComp
 Text GLabel 7600 1700 0    50   Input ~ 0
-5V
-Text GLabel 7600 1900 0    50   Input ~ 0
 TURB
-Text GLabel 7600 1800 0    50   Input ~ 0
+Text GLabel 7600 1900 0    50   Input ~ 0
 GND
+Text GLabel 7600 1800 0    50   Input ~ 0
+5V
 $Comp
 L Connector_Generic:Conn_01x03 JAnalog33
 U 1 1 61AD5794
 P 1000 3650
 F 0 "JAnalog33" H 918 3325 50  0000 C CNN
 F 1 "Conn_01x03" H 918 3416 50  0000 C CNN
-F 2 "" H 1000 3650 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 1000 3650 50  0001 C CNN
 F 3 "~" H 1000 3650 50  0001 C CNN
 	1    1000 3650
 	-1   0    0    1   
@@ -112,7 +110,7 @@ U 1 1 61AD7381
 P 1000 2000
 F 0 "JAnalog5" H 918 1675 50  0000 C CNN
 F 1 "Conn_01x03" H 918 1766 50  0000 C CNN
-F 2 "" H 1000 2000 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 1000 2000 50  0001 C CNN
 F 3 "~" H 1000 2000 50  0001 C CNN
 	1    1000 2000
 	-1   0    0    1   
@@ -129,7 +127,7 @@ U 1 1 61AE3686
 P 1850 2500
 F 0 "R2" H 1920 2546 50  0000 L CNN
 F 1 "2K" H 1920 2455 50  0000 L CNN
-F 2 "" V 1780 2500 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1780 2500 50  0001 C CNN
 F 3 "~" H 1850 2500 50  0001 C CNN
 	1    1850 2500
 	1    0    0    -1  
@@ -140,7 +138,7 @@ U 1 1 61AE5F2C
 P 1600 2100
 F 0 "R1" V 1807 2100 50  0000 C CNN
 F 1 "1K" V 1716 2100 50  0000 C CNN
-F 2 "" V 1530 2100 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1530 2100 50  0001 C CNN
 F 3 "~" H 1600 2100 50  0001 C CNN
 	1    1600 2100
 	0    -1   -1   0   
@@ -155,7 +153,7 @@ U 1 1 61AE94B9
 P 2200 2600
 F 0 "C2" H 2315 2646 50  0000 L CNN
 F 1 "0.1u" H 2315 2555 50  0000 L CNN
-F 2 "" H 2238 2450 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 2238 2450 50  0001 C CNN
 F 3 "~" H 2200 2600 50  0001 C CNN
 	1    2200 2600
 	1    0    0    -1  
@@ -175,19 +173,6 @@ Wire Wire Line
 	2200 3100 2200 2750
 Text GLabel 3300 2100 2    50   Input ~ 0
 ANALOG5
-$Comp
-L Device:LED D2
-U 1 1 61AFB361
-P 3000 2100
-F 0 "D2" H 2993 1845 50  0000 C CNN
-F 1 "LED" H 2993 1936 50  0000 C CNN
-F 2 "" H 3000 2100 50  0001 C CNN
-F 3 "~" H 3000 2100 50  0001 C CNN
-	1    3000 2100
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	3150 2100 3300 2100
 Text GLabel 4700 3150 0    50   Input ~ 0
 ANALOG5
 Text GLabel 4700 3250 0    50   Input ~ 0
@@ -195,73 +180,25 @@ ANALOG33
 $Comp
 L Device:C C1
 U 1 1 61B1FBF9
-P 1900 4250
-F 0 "C1" H 2015 4296 50  0000 L CNN
-F 1 "0.1u" H 2015 4205 50  0000 L CNN
-F 2 "" H 1938 4100 50  0001 C CNN
-F 3 "~" H 1900 4250 50  0001 C CNN
-	1    1900 4250
+P 1900 3900
+F 0 "C1" H 2015 3946 50  0000 L CNN
+F 1 "0.1u" H 2015 3855 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 1938 3750 50  0001 C CNN
+F 3 "~" H 1900 3900 50  0001 C CNN
+	1    1900 3900
 	1    0    0    -1  
 $EndComp
-Text GLabel 1900 4750 3    50   Input ~ 0
+Text GLabel 1900 4400 3    50   Input ~ 0
 GND
-Wire Wire Line
-	1900 4100 1900 3750
-Wire Wire Line
-	1900 4750 1900 4400
-$Comp
-L Device:LED D1
-U 1 1 61B1FC05
-P 2700 3750
-F 0 "D1" H 2693 3495 50  0000 C CNN
-F 1 "LED" H 2693 3586 50  0000 C CNN
-F 2 "" H 2700 3750 50  0001 C CNN
-F 3 "~" H 2700 3750 50  0001 C CNN
-	1    2700 3750
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2850 3750 3000 3750
 Text GLabel 1200 3650 2    50   Input ~ 0
 GND
 Text GLabel 1200 3550 2    50   Input ~ 0
 5V
 Wire Wire Line
 	1200 3750 1900 3750
-Text GLabel 3000 3750 2    50   Input ~ 0
+Text GLabel 1900 3750 2    50   Input ~ 0
 ANALOG33
-$Comp
-L Device:R R4
-U 1 1 61B3905B
-P 2400 2100
-F 0 "R4" V 2193 2100 50  0000 C CNN
-F 1 "100" V 2284 2100 50  0000 C CNN
-F 2 "" V 2330 2100 50  0001 C CNN
-F 3 "~" H 2400 2100 50  0001 C CNN
-	1    2400 2100
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2250 2100 2200 2100
 Connection ~ 2200 2100
-Wire Wire Line
-	2550 2100 2850 2100
-$Comp
-L Device:R R3
-U 1 1 61B41809
-P 2150 3750
-F 0 "R3" V 1943 3750 50  0000 C CNN
-F 1 "100" V 2034 3750 50  0000 C CNN
-F 2 "" V 2080 3750 50  0001 C CNN
-F 3 "~" H 2150 3750 50  0001 C CNN
-	1    2150 3750
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2300 3750 2550 3750
-Wire Wire Line
-	2000 3750 1900 3750
-Connection ~ 1900 3750
 $Comp
 L Regulator_Linear:LM7805_TO220 U1
 U 1 1 61B56948
@@ -279,7 +216,7 @@ U 1 1 61B578DD
 P 1000 1050
 F 0 "J4" H 918 725 50  0000 C CNN
 F 1 "Conn_01x02" H 918 816 50  0000 C CNN
-F 2 "" H 1000 1050 50  0001 C CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" H 1000 1050 50  0001 C CNN
 F 3 "~" H 1000 1050 50  0001 C CNN
 	1    1000 1050
 	-1   0    0    1   
@@ -292,7 +229,7 @@ U 1 1 61B59713
 P 1450 1350
 F 0 "C3" H 1565 1396 50  0000 L CNN
 F 1 "0.33u" H 1565 1305 50  0000 L CNN
-F 2 "" H 1488 1200 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 1488 1200 50  0001 C CNN
 F 3 "~" H 1450 1350 50  0001 C CNN
 	1    1450 1350
 	1    0    0    -1  
@@ -303,7 +240,7 @@ U 1 1 61B5A146
 P 3100 1300
 F 0 "C4" H 3215 1346 50  0000 L CNN
 F 1 "0.1u" H 3215 1255 50  0000 L CNN
-F 2 "" H 3138 1150 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 3138 1150 50  0001 C CNN
 F 3 "~" H 3100 1300 50  0001 C CNN
 	1    3100 1300
 	1    0    0    -1  
@@ -337,7 +274,7 @@ U 1 1 61B66748
 P 3650 950
 F 0 "D3" H 3643 695 50  0000 C CNN
 F 1 "LED" H 3643 786 50  0000 C CNN
-F 2 "" H 3650 950 50  0001 C CNN
+F 2 "LED_THT:LED_D5.0mm" H 3650 950 50  0001 C CNN
 F 3 "~" H 3650 950 50  0001 C CNN
 	1    3650 950 
 	-1   0    0    1   
@@ -391,7 +328,7 @@ U 1 1 61AA2280
 P 9850 1450
 F 0 "RTI1" H 9920 1496 50  0000 L CNN
 F 1 "4K7" H 9920 1405 50  0000 L CNN
-F 2 "" V 9780 1450 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 9780 1450 50  0001 C CNN
 F 3 "~" H 9850 1450 50  0001 C CNN
 	1    9850 1450
 	1    0    0    -1  
@@ -404,7 +341,7 @@ U 1 1 61A9CCCE
 P 8350 1100
 F 0 "RTE1" H 8420 1146 50  0000 L CNN
 F 1 "4K7" H 8420 1055 50  0000 L CNN
-F 2 "" V 8280 1100 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 8280 1100 50  0001 C CNN
 F 3 "~" H 8350 1100 50  0001 C CNN
 	1    8350 1100
 	1    0    0    -1  
@@ -430,7 +367,7 @@ U 1 1 61A940FA
 P 10550 1100
 F 0 "JTempI1" H 10630 1142 50  0000 L CNN
 F 1 "Conn_01x03" H 10630 1051 50  0000 L CNN
-F 2 "" H 10550 1100 50  0001 C CNN
+F 2 "Connector_JST:JST_EH_B3B-EH-A_1x03_P2.50mm_Vertical" H 10550 1100 50  0001 C CNN
 F 3 "~" H 10550 1100 50  0001 C CNN
 	1    10550 1100
 	1    0    0    -1  
@@ -441,7 +378,7 @@ U 1 1 61A819CA
 P 9200 1100
 F 0 "JTempE1" H 9280 1142 50  0000 L CNN
 F 1 "Conn_01x03" H 9280 1051 50  0000 L CNN
-F 2 "" H 9200 1100 50  0001 C CNN
+F 2 "Connector_JST:JST_EH_B3B-EH-A_1x03_P2.50mm_Vertical" H 9200 1100 50  0001 C CNN
 F 3 "~" H 9200 1100 50  0001 C CNN
 	1    9200 1100
 	1    0    0    -1  
@@ -452,7 +389,7 @@ U 1 1 61A7BAF4
 P 6050 3650
 F 0 "J2" H 6130 3692 50  0000 L CNN
 F 1 "Conn_01x19" H 6130 3601 50  0000 L CNN
-F 2 "" H 6050 3650 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x19_P2.54mm_Vertical" H 6050 3650 50  0001 C CNN
 F 3 "~" H 6050 3650 50  0001 C CNN
 	1    6050 3650
 	-1   0    0    1   
@@ -463,7 +400,7 @@ U 1 1 61A797EA
 P 4900 3650
 F 0 "J1" H 4980 3692 50  0000 L CNN
 F 1 "Conn_01x19" H 4980 3601 50  0000 L CNN
-F 2 "" H 4900 3650 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x19_P2.54mm_Vertical" H 4900 3650 50  0001 C CNN
 F 3 "~" H 4900 3650 50  0001 C CNN
 	1    4900 3650
 	1    0    0    -1  
@@ -475,34 +412,34 @@ Text GLabel 4650 950  2    50   Input ~ 0
 Wire Wire Line
 	4650 1150 4900 1150
 $Comp
-L Connector_Generic:Conn_01x03 JAnalog?
+L Connector_Generic:Conn_01x03 JAnalog3
 U 1 1 61BBAC3C
 P 4450 1050
-F 0 "JAnalog?" H 4368 725 50  0000 C CNN
+F 0 "JAnalog3" H 4368 725 50  0000 C CNN
 F 1 "Conn_01x03" H 4368 816 50  0000 C CNN
-F 2 "" H 4450 1050 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 4450 1050 50  0001 C CNN
 F 3 "~" H 4450 1050 50  0001 C CNN
 	1    4450 1050
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R4
 U 1 1 61BBAC42
 P 5300 1550
-F 0 "R?" H 5370 1596 50  0000 L CNN
+F 0 "R4" H 5370 1596 50  0000 L CNN
 F 1 "2K" H 5370 1505 50  0000 L CNN
-F 2 "" V 5230 1550 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 5230 1550 50  0001 C CNN
 F 3 "~" H 5300 1550 50  0001 C CNN
 	1    5300 1550
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R3
 U 1 1 61BBAC48
 P 5050 1150
-F 0 "R?" V 5257 1150 50  0000 C CNN
+F 0 "R3" V 5257 1150 50  0000 C CNN
 F 1 "1K" V 5166 1150 50  0000 C CNN
-F 2 "" V 4980 1150 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 4980 1150 50  0001 C CNN
 F 3 "~" H 5050 1150 50  0001 C CNN
 	1    5050 1150
 	0    -1   -1   0   
@@ -512,12 +449,12 @@ Wire Wire Line
 Wire Wire Line
 	5300 1150 5300 1400
 $Comp
-L Device:C C?
+L Device:C C7
 U 1 1 61BBAC50
 P 5650 1650
-F 0 "C?" H 5765 1696 50  0000 L CNN
+F 0 "C7" H 5765 1696 50  0000 L CNN
 F 1 "0.1u" H 5765 1605 50  0000 L CNN
-F 2 "" H 5688 1500 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 5688 1500 50  0001 C CNN
 F 3 "~" H 5650 1650 50  0001 C CNN
 	1    5650 1650
 	1    0    0    -1  
@@ -536,25 +473,12 @@ Connection ~ 5300 1150
 Wire Wire Line
 	5650 2150 5650 1800
 $Comp
-L Device:LED D?
-U 1 1 61BBAC5E
-P 6450 1150
-F 0 "D?" H 6443 895 50  0000 C CNN
-F 1 "LED" H 6443 986 50  0000 C CNN
-F 2 "" H 6450 1150 50  0001 C CNN
-F 3 "~" H 6450 1150 50  0001 C CNN
-	1    6450 1150
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6600 1150 6750 1150
-$Comp
-L Device:R R?
+L Device:R R5
 U 1 1 61BBAC65
 P 5850 1150
-F 0 "R?" V 5643 1150 50  0000 C CNN
+F 0 "R5" V 5643 1150 50  0000 C CNN
 F 1 "100" V 5734 1150 50  0000 C CNN
-F 2 "" V 5780 1150 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 5780 1150 50  0001 C CNN
 F 3 "~" H 5850 1150 50  0001 C CNN
 	1    5850 1150
 	0    1    1    0   
@@ -562,30 +486,28 @@ $EndComp
 Wire Wire Line
 	5700 1150 5650 1150
 Connection ~ 5650 1150
-Wire Wire Line
-	6000 1150 6300 1150
 Text GLabel 4700 3550 0    50   Input ~ 0
 ANALOG5b
 Text GLabel 6750 1150 2    50   Input ~ 0
 ANALOG5b
 $Comp
-L Connector_Generic:Conn_01x03 JAnalog?
+L Connector_Generic:Conn_01x03 JAnalog2
 U 1 1 61BF0D0B
 P 1000 5150
-F 0 "JAnalog?" H 918 4825 50  0000 C CNN
+F 0 "JAnalog2" H 918 4825 50  0000 C CNN
 F 1 "Conn_01x03" H 918 4916 50  0000 C CNN
-F 2 "" H 1000 5150 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 1000 5150 50  0001 C CNN
 F 3 "~" H 1000 5150 50  0001 C CNN
 	1    1000 5150
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:C C?
+L Device:C C6
 U 1 1 61BF0D11
 P 1900 5650
-F 0 "C?" H 2015 5696 50  0000 L CNN
+F 0 "C6" H 2015 5696 50  0000 L CNN
 F 1 "0.1u" H 2015 5605 50  0000 L CNN
-F 2 "" H 1938 5500 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 1938 5500 50  0001 C CNN
 F 3 "~" H 1900 5650 50  0001 C CNN
 	1    1900 5650
 	1    0    0    -1  
@@ -594,40 +516,14 @@ Text GLabel 1900 5900 3    50   Input ~ 0
 GND
 Wire Wire Line
 	1900 5500 1900 5250
-$Comp
-L Device:LED D?
-U 1 1 61BF0D1A
-P 2700 5250
-F 0 "D?" H 2693 4995 50  0000 C CNN
-F 1 "LED" H 2693 5086 50  0000 C CNN
-F 2 "" H 2700 5250 50  0001 C CNN
-F 3 "~" H 2700 5250 50  0001 C CNN
-	1    2700 5250
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2850 5250 3000 5250
 Text GLabel 1200 5150 2    50   Input ~ 0
 GND
 Text GLabel 1200 5050 2    50   Input ~ 0
 5V
 Wire Wire Line
 	1200 5250 1900 5250
-Text GLabel 3000 5250 2    50   Input ~ 0
+Text GLabel 2000 5250 2    50   Input ~ 0
 ANALOG33b
-$Comp
-L Device:R R?
-U 1 1 61BF0D25
-P 2150 5250
-F 0 "R?" V 1943 5250 50  0000 C CNN
-F 1 "100" V 2034 5250 50  0000 C CNN
-F 2 "" V 2080 5250 50  0001 C CNN
-F 3 "~" H 2150 5250 50  0001 C CNN
-	1    2150 5250
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2300 5250 2550 5250
 Wire Wire Line
 	2000 5250 1900 5250
 Connection ~ 1900 5250
@@ -636,23 +532,23 @@ ANALOG33b
 Wire Wire Line
 	1900 5800 1900 5900
 $Comp
-L Connector_Generic:Conn_01x03 JAnalog?
+L Connector_Generic:Conn_01x03 JAnalog1
 U 1 1 61C1762A
 P 950 6300
-F 0 "JAnalog?" H 868 5975 50  0000 C CNN
+F 0 "JAnalog1" H 868 5975 50  0000 C CNN
 F 1 "Conn_01x03" H 868 6066 50  0000 C CNN
-F 2 "" H 950 6300 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 950 6300 50  0001 C CNN
 F 3 "~" H 950 6300 50  0001 C CNN
 	1    950  6300
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:C C?
+L Device:C C5
 U 1 1 61C17630
 P 1850 6800
-F 0 "C?" H 1965 6846 50  0000 L CNN
+F 0 "C5" H 1965 6846 50  0000 L CNN
 F 1 "0.1u" H 1965 6755 50  0000 L CNN
-F 2 "" H 1888 6650 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 1888 6650 50  0001 C CNN
 F 3 "~" H 1850 6800 50  0001 C CNN
 	1    1850 6800
 	1    0    0    -1  
@@ -661,63 +557,37 @@ Text GLabel 1850 7050 3    50   Input ~ 0
 GND
 Wire Wire Line
 	1850 6650 1850 6400
-$Comp
-L Device:LED D?
-U 1 1 61C17638
-P 2650 6400
-F 0 "D?" H 2643 6145 50  0000 C CNN
-F 1 "LED" H 2643 6236 50  0000 C CNN
-F 2 "" H 2650 6400 50  0001 C CNN
-F 3 "~" H 2650 6400 50  0001 C CNN
-	1    2650 6400
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2800 6400 2950 6400
 Text GLabel 1150 6300 2    50   Input ~ 0
 GND
 Text GLabel 1150 6200 2    50   Input ~ 0
 5V
 Wire Wire Line
 	1150 6400 1850 6400
-Text GLabel 2950 6400 2    50   Input ~ 0
+Text GLabel 1950 6400 2    50   Input ~ 0
 ANALOG33c
-$Comp
-L Device:R R?
-U 1 1 61C17643
-P 2100 6400
-F 0 "R?" V 1893 6400 50  0000 C CNN
-F 1 "100" V 1984 6400 50  0000 C CNN
-F 2 "" V 2030 6400 50  0001 C CNN
-F 3 "~" H 2100 6400 50  0001 C CNN
-	1    2100 6400
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2250 6400 2500 6400
 Wire Wire Line
 	1950 6400 1850 6400
 Connection ~ 1850 6400
 Wire Wire Line
 	1850 6950 1850 7050
 $Comp
-L Connector_Generic:Conn_01x03 JAnalog?
+L Connector_Generic:Conn_01x03 JAnalog7
 U 1 1 61C1EA88
 P 8600 2150
-F 0 "JAnalog?" H 8518 1825 50  0000 C CNN
+F 0 "JAnalog7" H 8518 1825 50  0000 C CNN
 F 1 "Conn_01x03" H 8518 1916 50  0000 C CNN
-F 2 "" H 8600 2150 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 8600 2150 50  0001 C CNN
 F 3 "~" H 8600 2150 50  0001 C CNN
 	1    8600 2150
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:C C?
+L Device:C C8
 U 1 1 61C1EA8E
 P 9500 2650
-F 0 "C?" H 9615 2696 50  0000 L CNN
+F 0 "C8" H 9615 2696 50  0000 L CNN
 F 1 "0.1u" H 9615 2605 50  0000 L CNN
-F 2 "" H 9538 2500 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 9538 2500 50  0001 C CNN
 F 3 "~" H 9500 2650 50  0001 C CNN
 	1    9500 2650
 	1    0    0    -1  
@@ -726,19 +596,6 @@ Text GLabel 9500 2900 3    50   Input ~ 0
 GND
 Wire Wire Line
 	9500 2500 9500 2250
-$Comp
-L Device:LED D?
-U 1 1 61C1EA96
-P 10300 2250
-F 0 "D?" H 10293 1995 50  0000 C CNN
-F 1 "LED" H 10293 2086 50  0000 C CNN
-F 2 "" H 10300 2250 50  0001 C CNN
-F 3 "~" H 10300 2250 50  0001 C CNN
-	1    10300 2250
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	10450 2250 10600 2250
 Text GLabel 8800 2150 2    50   Input ~ 0
 GND
 Text GLabel 8800 2050 2    50   Input ~ 0
@@ -746,90 +603,10 @@ Text GLabel 8800 2050 2    50   Input ~ 0
 Wire Wire Line
 	8800 2250 9500 2250
 Text GLabel 10600 2250 2    50   Input ~ 0
-ANALOG33c
-$Comp
-L Device:R R?
-U 1 1 61C1EAA1
-P 9750 2250
-F 0 "R?" V 9543 2250 50  0000 C CNN
-F 1 "100" V 9634 2250 50  0000 C CNN
-F 2 "" V 9680 2250 50  0001 C CNN
-F 3 "~" H 9750 2250 50  0001 C CNN
-	1    9750 2250
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9900 2250 10150 2250
-Wire Wire Line
-	9600 2250 9500 2250
+ANALOG33d
 Connection ~ 9500 2250
 Wire Wire Line
 	9500 2800 9500 2900
-$Comp
-L Connector_Generic:Conn_01x03 JAnalog?
-U 1 1 61C35B8A
-P 8600 3300
-F 0 "JAnalog?" H 8518 2975 50  0000 C CNN
-F 1 "Conn_01x03" H 8518 3066 50  0000 C CNN
-F 2 "" H 8600 3300 50  0001 C CNN
-F 3 "~" H 8600 3300 50  0001 C CNN
-	1    8600 3300
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:C C?
-U 1 1 61C35B90
-P 9500 3800
-F 0 "C?" H 9615 3846 50  0000 L CNN
-F 1 "0.1u" H 9615 3755 50  0000 L CNN
-F 2 "" H 9538 3650 50  0001 C CNN
-F 3 "~" H 9500 3800 50  0001 C CNN
-	1    9500 3800
-	1    0    0    -1  
-$EndComp
-Text GLabel 9500 4050 3    50   Input ~ 0
-GND
-Wire Wire Line
-	9500 3650 9500 3400
-$Comp
-L Device:LED D?
-U 1 1 61C35B98
-P 10300 3400
-F 0 "D?" H 10293 3145 50  0000 C CNN
-F 1 "LED" H 10293 3236 50  0000 C CNN
-F 2 "" H 10300 3400 50  0001 C CNN
-F 3 "~" H 10300 3400 50  0001 C CNN
-	1    10300 3400
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	10450 3400 10600 3400
-Text GLabel 8800 3300 2    50   Input ~ 0
-GND
-Text GLabel 8800 3200 2    50   Input ~ 0
-5V
-Wire Wire Line
-	8800 3400 9500 3400
-Text GLabel 10600 3400 2    50   Input ~ 0
-ANALOG33d
-$Comp
-L Device:R R?
-U 1 1 61C35BA3
-P 9750 3400
-F 0 "R?" V 9543 3400 50  0000 C CNN
-F 1 "100" V 9634 3400 50  0000 C CNN
-F 2 "" V 9680 3400 50  0001 C CNN
-F 3 "~" H 9750 3400 50  0001 C CNN
-	1    9750 3400
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9900 3400 10150 3400
-Wire Wire Line
-	9600 3400 9500 3400
-Connection ~ 9500 3400
-Wire Wire Line
-	9500 3950 9500 4050
 Text GLabel 6250 4250 2    50   Input ~ 0
 ANALOG33d
 Text GLabel 6250 4150 2    50   Input ~ 0
@@ -841,34 +618,34 @@ Text GLabel 8600 4300 2    50   Input ~ 0
 Wire Wire Line
 	8600 4500 8850 4500
 $Comp
-L Connector_Generic:Conn_01x03 JAnalog?
+L Connector_Generic:Conn_01x03 JAnalog4
 U 1 1 61C52838
 P 8400 4400
-F 0 "JAnalog?" H 8318 4075 50  0000 C CNN
+F 0 "JAnalog4" H 8318 4075 50  0000 C CNN
 F 1 "Conn_01x03" H 8318 4166 50  0000 C CNN
-F 2 "" H 8400 4400 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 8400 4400 50  0001 C CNN
 F 3 "~" H 8400 4400 50  0001 C CNN
 	1    8400 4400
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R8
 U 1 1 61C5283E
 P 9250 4750
-F 0 "R?" H 9320 4796 50  0000 L CNN
+F 0 "R8" H 9320 4796 50  0000 L CNN
 F 1 "2K" H 9320 4705 50  0000 L CNN
-F 2 "" V 9180 4750 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 9180 4750 50  0001 C CNN
 F 3 "~" H 9250 4750 50  0001 C CNN
 	1    9250 4750
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R6
 U 1 1 61C52844
 P 9000 4500
-F 0 "R?" V 9207 4500 50  0000 C CNN
+F 0 "R6" V 9207 4500 50  0000 C CNN
 F 1 "1K" V 9116 4500 50  0000 C CNN
-F 2 "" V 8930 4500 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 8930 4500 50  0001 C CNN
 F 3 "~" H 9000 4500 50  0001 C CNN
 	1    9000 4500
 	0    -1   -1   0   
@@ -885,25 +662,12 @@ Wire Wire Line
 	9600 4500 9250 4500
 Connection ~ 9250 4500
 $Comp
-L Device:LED D?
-U 1 1 61C52859
-P 10400 4500
-F 0 "D?" H 10393 4245 50  0000 C CNN
-F 1 "LED" H 10393 4336 50  0000 C CNN
-F 2 "" H 10400 4500 50  0001 C CNN
-F 3 "~" H 10400 4500 50  0001 C CNN
-	1    10400 4500
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	10550 4500 10700 4500
-$Comp
-L Device:R R?
+L Device:R R11
 U 1 1 61C52860
 P 9800 4500
-F 0 "R?" V 9593 4500 50  0000 C CNN
+F 0 "R11" V 9593 4500 50  0000 C CNN
 F 1 "100" V 9684 4500 50  0000 C CNN
-F 2 "" V 9730 4500 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 9730 4500 50  0001 C CNN
 F 3 "~" H 9800 4500 50  0001 C CNN
 	1    9800 4500
 	0    1    1    0   
@@ -911,8 +675,6 @@ $EndComp
 Wire Wire Line
 	9650 4500 9600 4500
 Connection ~ 9600 4500
-Wire Wire Line
-	9950 4500 10250 4500
 Text GLabel 10700 4500 2    50   Input ~ 0
 ANALOG5c
 $Bitmap
@@ -11180,7 +10942,7 @@ U 1 1 61AA9151
 P 7600 3400
 F 0 "J3" H 7680 3392 50  0000 L CNN
 F 1 "ADS1115" H 7680 3301 50  0000 L CNN
-F 2 "" H 7600 3400 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical" H 7600 3400 50  0001 C CNN
 F 3 "~" H 7600 3400 50  0001 C CNN
 	1    7600 3400
 	1    0    0    -1  
@@ -11188,12 +10950,12 @@ $EndComp
 Wire Wire Line
 	9600 4600 9600 4500
 $Comp
-L Device:C C?
+L Device:C C9
 U 1 1 61C5284C
 P 9600 4750
-F 0 "C?" H 9715 4796 50  0000 L CNN
+F 0 "C9" H 9715 4796 50  0000 L CNN
 F 1 "0.1u" H 9715 4705 50  0000 L CNN
-F 2 "" H 9638 4600 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 9638 4600 50  0001 C CNN
 F 3 "~" H 9600 4750 50  0001 C CNN
 	1    9600 4750
 	1    0    0    -1  
@@ -11203,34 +10965,34 @@ GND
 Wire Wire Line
 	8650 5550 8900 5550
 $Comp
-L Connector_Generic:Conn_01x03 JAnalog?
+L Connector_Generic:Conn_01x03 JAnalog6
 U 1 1 61CB52FC
 P 8450 5450
-F 0 "JAnalog?" H 8368 5125 50  0000 C CNN
+F 0 "JAnalog6" H 8368 5125 50  0000 C CNN
 F 1 "Conn_01x03" H 8368 5216 50  0000 C CNN
-F 2 "" H 8450 5450 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 8450 5450 50  0001 C CNN
 F 3 "~" H 8450 5450 50  0001 C CNN
 	1    8450 5450
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R9
 U 1 1 61CB5302
 P 9300 5800
-F 0 "R?" H 9370 5846 50  0000 L CNN
+F 0 "R9" H 9370 5846 50  0000 L CNN
 F 1 "2K" H 9370 5755 50  0000 L CNN
-F 2 "" V 9230 5800 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 9230 5800 50  0001 C CNN
 F 3 "~" H 9300 5800 50  0001 C CNN
 	1    9300 5800
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R7
 U 1 1 61CB5308
 P 9050 5550
-F 0 "R?" V 9257 5550 50  0000 C CNN
+F 0 "R7" V 9257 5550 50  0000 C CNN
 F 1 "1K" V 9166 5550 50  0000 C CNN
-F 2 "" V 8980 5550 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 8980 5550 50  0001 C CNN
 F 3 "~" H 9050 5550 50  0001 C CNN
 	1    9050 5550
 	0    -1   -1   0   
@@ -11246,46 +11008,18 @@ GND
 Wire Wire Line
 	9650 5550 9300 5550
 Connection ~ 9300 5550
-$Comp
-L Device:LED D?
-U 1 1 61CB5314
-P 10450 5550
-F 0 "D?" H 10443 5295 50  0000 C CNN
-F 1 "LED" H 10443 5386 50  0000 C CNN
-F 2 "" H 10450 5550 50  0001 C CNN
-F 3 "~" H 10450 5550 50  0001 C CNN
-	1    10450 5550
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	10600 5550 10750 5550
-$Comp
-L Device:R R?
-U 1 1 61CB531B
-P 9850 5550
-F 0 "R?" V 9643 5550 50  0000 C CNN
-F 1 "100" V 9734 5550 50  0000 C CNN
-F 2 "" V 9780 5550 50  0001 C CNN
-F 3 "~" H 9850 5550 50  0001 C CNN
-	1    9850 5550
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9700 5550 9650 5550
 Connection ~ 9650 5550
-Wire Wire Line
-	10000 5550 10300 5550
 Text GLabel 10750 5550 2    50   Input ~ 0
 ANALOG5d
 Wire Wire Line
 	9650 5650 9650 5550
 $Comp
-L Device:C C?
+L Device:C C10
 U 1 1 61CB5326
 P 9650 5800
-F 0 "C?" H 9765 5846 50  0000 L CNN
+F 0 "C10" H 9765 5846 50  0000 L CNN
 F 1 "0.1u" H 9765 5755 50  0000 L CNN
-F 2 "" H 9688 5650 50  0001 C CNN
+F 2 "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm" H 9688 5650 50  0001 C CNN
 F 3 "~" H 9650 5800 50  0001 C CNN
 	1    9650 5800
 	1    0    0    -1  
@@ -11294,4 +11028,91 @@ Text GLabel 6250 3950 2    50   Input ~ 0
 ANALOG5c
 Text GLabel 6250 4050 2    50   Input ~ 0
 ANALOG5d
+Wire Wire Line
+	9950 4500 10700 4500
+Text GLabel 8650 5350 2    50   Input ~ 0
+5V
+Wire Wire Line
+	2200 2100 3300 2100
+Wire Wire Line
+	1900 4050 1900 4400
+$Comp
+L Connector_Generic:Conn_01x04 J5
+U 1 1 61D45C94
+P 8400 3550
+F 0 "J5" H 8480 3542 50  0000 L CNN
+F 1 "I2C" H 8480 3451 50  0000 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 8400 3550 50  0001 C CNN
+F 3 "~" H 8400 3550 50  0001 C CNN
+	1    8400 3550
+	-1   0    0    1   
+$EndComp
+Text GLabel 8600 3350 2    50   Input ~ 0
+GND
+Text GLabel 8600 3450 2    50   Input ~ 0
+5V
+Text GLabel 8600 3550 2    50   Input ~ 0
+SDA
+Text GLabel 8600 3650 2    50   Input ~ 0
+SCL
+Text GLabel 4700 4550 0    50   Input ~ 0
+5V
+Text GLabel 6250 2850 2    50   Input ~ 0
+OTA
+Text GLabel 4700 2750 0    50   Input ~ 0
+33V
+Text GLabel 10700 3450 2    50   Input ~ 0
+OTA
+Text GLabel 9650 3500 0    50   Input ~ 0
+33V
+$Comp
+L Switch:SW_SPDT SW1
+U 1 1 61D807B8
+P 10150 3500
+F 0 "SW1" H 10150 3785 50  0000 C CNN
+F 1 "SW_SPDT" H 10150 3694 50  0000 C CNN
+F 2 "Button_Switch_SMD:SW_DIP_SPSTx01_Slide_Copal_CVS-01xB_W5.9mm_P1mm" H 10150 3500 50  0001 C CNN
+F 3 "~" H 10150 3500 50  0001 C CNN
+	1    10150 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9650 3500 9950 3500
+Wire Wire Line
+	10350 3600 10700 3600
+Wire Wire Line
+	10700 3600 10700 3450
+Text GLabel 10350 3400 2    50   Input ~ 0
+GND
+$Comp
+L Switch:SW_SP3T SW2
+U 1 1 61D8F01F
+P 7300 5150
+F 0 "SW2" H 7300 5433 50  0000 C CNN
+F 1 "SW_SP3T" H 7300 5342 50  0000 C CNN
+F 2 "Button_Switch_SMD:SW_SP3T_PCM13" H 6675 5325 50  0001 C CNN
+F 3 "~" H 6675 5325 50  0001 C CNN
+	1    7300 5150
+	1    0    0    -1  
+$EndComp
+Text GLabel 7100 5150 0    50   Input ~ 0
+33V
+Text GLabel 7500 5050 2    50   Input ~ 0
+display1
+Text GLabel 7500 5150 2    50   Input ~ 0
+display2
+Text GLabel 7500 5250 2    50   Input ~ 0
+display3
+Text GLabel 6250 3650 2    50   Input ~ 0
+display1
+Text GLabel 6250 3750 2    50   Input ~ 0
+display2
+Text GLabel 6250 3850 2    50   Input ~ 0
+display3
+Wire Wire Line
+	6000 1150 6750 1150
+Wire Wire Line
+	9500 2250 10600 2250
+Wire Wire Line
+	9650 5550 10750 5550
 $EndSCHEMATC
