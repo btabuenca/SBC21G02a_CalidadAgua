@@ -1,5 +1,4 @@
 #include <OneWire.h>
-#
 #include <DallasTemperature.h>
 #include <ThingsBoard.h>
 #include <WiFi.h>
@@ -29,6 +28,8 @@
 #define PIN_TEMP 33
 #define SAMPLESpH 16
 
+#define CURRENT_FIRMWARE_TITLE    "TEST"
+#define CURRENT_FIRMWARE_VERSION  "1.0.0"
  
 int AN_Pot1_i = 0;
 int AN_Pot1_Filtered = 0;
@@ -206,9 +207,6 @@ void getTemperature(){
   }
 
 void initConection(){
-  RPC_Callback callbacks[] = {
-   { "setGpioStatus",    processSetGpioState }};
-    //Conecta la placa con Thingsboard
    if (WiFi.status() != WL_CONNECTED) {
     reconnect();
     return;
@@ -237,12 +235,6 @@ void initConection(){
       }
     delay(1000);   
   }
-  // Perform a subscription. All consequent data processing will happen in
-  // callbacks as denoted by callbacks[] array.
-  if (!tb.RPC_Subscribe(callbacks, COUNT_OF(callbacks))) {
-    Serial.println("Failed to subscribe for RPC");
-    return;
-  }
 }
 
 void sendData(){
@@ -260,6 +252,19 @@ void sendData(){
 
   tb.loop(); //Esta instrucción ha de ser la última del método
   }
+
+void suscribeOta(){
+   tb.Firmware_OTA_Subscribe();
+    if (tb.Firmware_Update(CURRENT_FIRMWARE_TITLE, CURRENT_FIRMWARE_VERSION)) {
+      Serial.println("Done, Reboot now");
+      esp_restart();
+    }
+    else {
+      Serial.println("No new firmware");
+    }
+    tb.Firmware_OTA_Unsubscribe();
+  }
+
 
 void sleep(int secs){
     esp_sleep_enable_timer_wakeup(secs *uS_TO_S_FACTOR);
@@ -358,25 +363,6 @@ void welcomeMsg(){
 }
 
 
-RPC_Response processSetGpioState(const RPC_Data &data)
-{
-  uint8_t leds_control[] = { 27,32,35};
-  Serial.println("Received the set GPIO RPC method");
-
-  int pin = data["pin"];
-  bool enabled = data["enabled"];
-
-    Serial.print("Setting LED ");
-    Serial.print(pin);
-    Serial.print(" to state ");
-    Serial.println(enabled);
-
-    digitalWrite(leds_control[pin], enabled);
-
-
-  return RPC_Response(data["pin"], (bool)data["enabled"]);
-}
-
 void setup() {
    
    sensorDS18B20.begin();
@@ -396,15 +382,7 @@ void setup() {
 void loop() {
   wakeup();
   initConection();
-  if(digitalRead(PIN_OTA) == HIGH){
-    ndor=212;
-    }
-  if(ndor==212){      //212 ciclos para ser lanzado cada hora
-    otaIF=true;
-    InitOTA();
-    ndor=0;  
-  }
-  else ndor++;
+  suscribeOta();
   Serial.println("Mandando comandos a los sensores");
   getTemperature();
   getTurbidez();
