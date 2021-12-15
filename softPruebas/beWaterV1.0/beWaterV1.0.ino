@@ -27,6 +27,7 @@
 #define DISPLAY3 27
 #define PIN_TEMP 33
 #define SAMPLESpH 16
+#define SECS_DISPLAY 30
 
  
 int AN_Pot1_i = 0;
@@ -49,16 +50,18 @@ int16_t adc0, adc1, adc2, adc3;
 const char* ssid = WIFI_AP_NAME;
 const char* password = WIFI_PASSWORD;
 int ndor = 0;
+int hour=(3600/(10+SECS_DISPLAY+PERIODO));
 int secsOTA=SEGUNDOSOTA;
-bool otaIF;
 
 
 //LCD 
 int lcdColumns = 16;
 int lcdRows = 2;
-LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);  
+LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows); 
+int displayMode=1;
+int secsDisplay=SECS_DISPLAY;
 
-
+ 
 WebServer server(80);
 
 //Sensors
@@ -71,61 +74,13 @@ ThingsBoard tb(espClient);
 //ADC
 Adafruit_ADS1115 ads;
 
-
-
-void setup() {
-   
-   sensorDS18B20.begin();
-   ads.begin();
-   pinMode(PIN_OTA, INPUT);
-   pinMode(DISPLAY1, INPUT);
-   pinMode(DISPLAY2, INPUT);
-   pinMode(DISPLAY3, INPUT);
-   lcd.init();                      
-   lcd.backlight();
-   Serial.begin(SERIAL_DEBUG_BAUD);
-   WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
-   welcomeMsg(); 
-   InitWiFi();
+void IRAM_ATTR isr() {
+  displayMode += 1;
+  displayMode=(displayMode%3)+1;
+  //infoMsg();
+  //Serial.println("BEEP");
 }
 
-void loop() {
-  wakeup();
-  initConection();
-  if(digitalRead(PIN_OTA) == HIGH){
-    ndor=212;
-    }
-  if(ndor==212){      //212 ciclos para ser lanzado cada hora
-    otaIF=true;
-    InitOTA();
-    ndor=0;  
-  }
-  else ndor++;
-  Serial.println("Mandando comandos a los sensores");
-  getTemperature();
-  getTurbidez();
-  getEC();
-  getTDS();
-  getpH();
-  sendData();
-  infoMsg();
-  if(otaIF){
-    while(secsOTA>0){
-        getTemperature();
-        getTurbidez();
-        getEC();
-        getTDS();
-        getpH();
-        sendData();
-        secsOTA--;
-        server.handleClient();
-        delay(1000);
-      }
-     otaIF=false;
-    }
-  delay(5000);
-  sleep(PERIODO);
-}
 
 void InitWiFi()
 {
@@ -187,7 +142,6 @@ void InitOTA (){
   ElegantOTA.begin(&server);    // Start ElegantOTA
   server.begin();
   Serial.println("HTTP server started");
-
 }
   
 void getEC(){
@@ -351,7 +305,7 @@ void welcomeMsg(){
 
  void infoMsg(){
 
-  if(digitalRead(DISPLAY1) == HIGH){
+  if(displayMode==1){
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("Temp Int: ");
@@ -366,7 +320,7 @@ void welcomeMsg(){
     lcd.setCursor(15,1);
     lcd.print((char) 223);
     }
-  else if(digitalRead(DISPLAY2)==HIGH){
+  else if(displayMode==2){
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("pH: ");
@@ -379,7 +333,7 @@ void welcomeMsg(){
     lcd.setCursor(10,1);
     lcd.print("uS");  
     }
-   else if(digitalRead(DISPLAY3)==HIGH){
+   else if(displayMode==3){
     lcd.clear();
     
     lcd.setCursor(0,0);
@@ -396,5 +350,71 @@ void welcomeMsg(){
     lcd.setCursor(11,1);
     lcd.print("PPM");
    }
-  delay(10000);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+void setup() {
+   
+   sensorDS18B20.begin();
+   ads.begin();
+   pinMode(PIN_OTA, INPUT);
+   pinMode(DISPLAY1, INPUT);
+   pinMode(DISPLAY2, INPUT);
+   pinMode(DISPLAY3, INPUT);
+   attachInterrupt(DISPLAY3, isr, RISING);
+   lcd.init();                      
+   lcd.backlight();
+   Serial.begin(SERIAL_DEBUG_BAUD);
+   WiFi.begin(WIFI_AP_NAME, WIFI_PASSWORD);
+   welcomeMsg(); 
+   InitWiFi();
+}
+
+void loop() {
+  wakeup();
+  initConection();
+  if(digitalRead(PIN_OTA) == RISING){
+    ndor=hour;
+    }
+  if(ndor==hour){      // ciclos para ser lanzado cada hora
+    InitOTA();
+    ndor=0;
+    while(secsOTA>0){
+        getTemperature();
+        getTurbidez();
+        getEC();
+        getTDS();
+        getpH();
+        sendData();
+        secsOTA--;
+        server.handleClient();
+        delay(1000);
+      }
+  }
+  else ndor++;
+  Serial.println("Mandando comandos a los sensores");
+  while (secsDisplay>0){
+    getTemperature();
+    getTurbidez();
+    getEC();
+    getTDS();
+    getpH();
+    sendData();
+    infoMsg();
+    secsDisplay--;
+    delay(1000);
+    }
+  secsDisplay=SECS_DISPLAY;
+  delay(3000);
+  sleep(PERIODO);
 }
