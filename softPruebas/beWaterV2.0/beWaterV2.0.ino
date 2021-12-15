@@ -27,9 +27,8 @@
 #define DISPLAY3 27
 #define PIN_TEMP 33
 #define SAMPLESpH 16
+#define SECS_DISPLAY 30
 
-#define CURRENT_FIRMWARE_TITLE    "TEST"
-#define CURRENT_FIRMWARE_VERSION  "1.0.0"
  
 int AN_Pot1_i = 0;
 int AN_Pot1_Filtered = 0;
@@ -51,16 +50,18 @@ int16_t adc0, adc1, adc2, adc3;
 const char* ssid = WIFI_AP_NAME;
 const char* password = WIFI_PASSWORD;
 int ndor = 0;
+int hour=(3600/(10+SECS_DISPLAY+PERIODO));
 int secsOTA=SEGUNDOSOTA;
-bool otaIF;
 
 
 //LCD 
 int lcdColumns = 16;
 int lcdRows = 2;
-LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);  
+LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows); 
+int displayMode=1;
+int secsDisplay=SECS_DISPLAY;
 
-
+ 
 WebServer server(80);
 
 //Sensors
@@ -73,6 +74,12 @@ ThingsBoard tb(espClient);
 //ADC
 Adafruit_ADS1115 ads;
 
+void IRAM_ATTR isr() {
+  displayMode += 1;
+  displayMode=(displayMode%3)+1;
+  //infoMsg();
+  //Serial.println("BEEP");
+}
 
 
 void InitWiFi()
@@ -135,7 +142,6 @@ void InitOTA (){
   ElegantOTA.begin(&server);    // Start ElegantOTA
   server.begin();
   Serial.println("HTTP server started");
-
 }
   
 void getEC(){
@@ -207,6 +213,7 @@ void getTemperature(){
   }
 
 void initConection(){
+    //Conecta la placa con Thingsboard
    if (WiFi.status() != WL_CONNECTED) {
     reconnect();
     return;
@@ -239,7 +246,7 @@ void initConection(){
 
 void sendData(){
   //Manda a Thingsboard los datos obtenidos
-  Serial.println("Sending data...");
+Serial.println("Sending data...");
   tb.sendTelemetryFloat("TemperaturaExterior", TempE);
   tb.sendTelemetryFloat("TemperaturaInterior", TempI);
   tb.sendTelemetryFloat("DiferenciaTemp", difTemp);
@@ -253,22 +260,9 @@ void sendData(){
   tb.loop(); //Esta instrucción ha de ser la última del método
   }
 
-void suscribeOta(){
-   tb.Firmware_OTA_Subscribe();
-    if (tb.Firmware_Update(CURRENT_FIRMWARE_TITLE, CURRENT_FIRMWARE_VERSION)) {
-      Serial.println("Done, Reboot now");
-      esp_restart();
-    }
-    else {
-      Serial.println("No new firmware");
-    }
-    tb.Firmware_OTA_Unsubscribe();
-  }
-
-
 void sleep(int secs){
-    esp_sleep_enable_timer_wakeup(secs *uS_TO_S_FACTOR);
     tb.sendTelemetryBool("Conected", false);
+    esp_sleep_enable_timer_wakeup(secs *uS_TO_S_FACTOR);
     Serial.println("Going to sleep now");
     Serial.flush(); 
     lcd.noBacklight();
@@ -314,7 +308,7 @@ void welcomeMsg(){
 
  void infoMsg(){
 
-  if(digitalRead(DISPLAY1) == HIGH){
+  if(displayMode==1){
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("Temp Int: ");
@@ -329,7 +323,7 @@ void welcomeMsg(){
     lcd.setCursor(15,1);
     lcd.print((char) 223);
     }
-  else if(digitalRead(DISPLAY2)==HIGH){
+  else if(displayMode==2){
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("pH: ");
@@ -342,7 +336,7 @@ void welcomeMsg(){
     lcd.setCursor(10,1);
     lcd.print("uS");  
     }
-   else if(digitalRead(DISPLAY3)==HIGH){
+   else if(displayMode==3){
     lcd.clear();
     
     lcd.setCursor(0,0);
@@ -359,8 +353,17 @@ void welcomeMsg(){
     lcd.setCursor(11,1);
     lcd.print("PPM");
    }
-  delay(10000);
 }
+
+
+
+
+
+
+
+
+
+
 
 
 void setup() {
@@ -371,6 +374,7 @@ void setup() {
    pinMode(DISPLAY1, INPUT);
    pinMode(DISPLAY2, INPUT);
    pinMode(DISPLAY3, INPUT);
+   attachInterrupt(DISPLAY3, isr, RISING);
    lcd.init();                      
    lcd.backlight();
    Serial.begin(SERIAL_DEBUG_BAUD);
@@ -382,16 +386,12 @@ void setup() {
 void loop() {
   wakeup();
   initConection();
-  suscribeOta();
-  Serial.println("Mandando comandos a los sensores");
-  getTemperature();
-  getTurbidez();
-  getEC();
-  getTDS();
-  getpH();
-  sendData();
-  infoMsg();
-  if(otaIF){
+  if(digitalRead(PIN_OTA) == RISING){
+    ndor=hour;
+    }
+  if(ndor==hour){      // ciclos para ser lanzado cada hora
+    InitOTA();
+    ndor=0;
     while(secsOTA>0){
         getTemperature();
         getTurbidez();
@@ -403,8 +403,21 @@ void loop() {
         server.handleClient();
         delay(1000);
       }
-     otaIF=false;
+  }
+  else ndor++;
+  Serial.println("Mandando comandos a los sensores");
+  while (secsDisplay>0){
+    getTemperature();
+    getTurbidez();
+    getEC();
+    getTDS();
+    getpH();
+    sendData();
+    infoMsg();
+    secsDisplay--;
+    delay(1000);
     }
-  delay(5000);
+  secsDisplay=SECS_DISPLAY;
+  delay(3000);
   sleep(PERIODO);
 }
