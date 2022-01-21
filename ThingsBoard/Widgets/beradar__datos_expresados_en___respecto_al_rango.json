@@ -1,0 +1,154 @@
+{
+  "widget": {
+    "isSystemType": true,
+    "bundleAlias": "charts",
+    "typeAlias": "radar_chart_js",
+    "type": "latest",
+    "title": "New widget",
+    "image": null,
+    "description": null,
+    "sizeX": 7,
+    "sizeY": 5,
+    "config": {
+      "datasources": [
+        {
+          "type": "entity",
+          "name": null,
+          "entityAliasId": "e018eaf6-7e15-5a2f-1d2e-93278702cb81",
+          "filterId": null,
+          "dataKeys": [
+            {
+              "name": "pH",
+              "type": "timeseries",
+              "label": "pH",
+              "color": "#2196f3",
+              "settings": {},
+              "_hash": 0.34651154159508635,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return (value/14)*100;"
+            },
+            {
+              "name": "Electroconductividad",
+              "type": "timeseries",
+              "label": "Electroconductividad",
+              "color": "#4caf50",
+              "settings": {},
+              "_hash": 0.17282843353113053,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return (value/4000)*100;"
+            },
+            {
+              "name": "TDS",
+              "type": "timeseries",
+              "label": "TDS",
+              "color": "#f44336",
+              "settings": {},
+              "_hash": 0.33142758920947557,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return (value/500)*100;"
+            },
+            {
+              "name": "TemperaturaInterior",
+              "type": "timeseries",
+              "label": "TemperaturaInterior",
+              "color": "#ffc107",
+              "settings": {},
+              "_hash": 0.9561216291664663,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return (value/60)*100;"
+            },
+            {
+              "name": "Turbidez",
+              "type": "timeseries",
+              "label": "Turbidez",
+              "color": "#607d8b",
+              "settings": {},
+              "_hash": 0.746643676990582,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return (value/3000)*100;"
+            }
+          ]
+        }
+      ],
+      "timewindow": {
+        "realtime": {
+          "timewindowMs": 60000
+        }
+      },
+      "showTitle": true,
+      "backgroundColor": "#fff",
+      "color": "rgba(0, 0, 0, 0.87)",
+      "padding": "8px",
+      "settings": {
+        "showTooltip": true
+      },
+      "title": "beRadar. Datos expresados en % respecto al rango",
+      "showTitleIcon": false,
+      "titleTooltip": "Datos expresados en % respecto al rango",
+      "dropShadow": true,
+      "enableFullscreen": true,
+      "enableDataExport": true,
+      "widgetStyle": {},
+      "titleStyle": {
+        "fontSize": "16px",
+        "fontWeight": 400
+      },
+      "noDataDisplayMessage": "",
+      "showLegend": true,
+      "titleIcon": "",
+      "iconColor": "rgba(0, 0, 0, 0.87)",
+      "iconSize": "24px",
+      "legendConfig": {
+        "direction": "row",
+        "position": "bottom",
+        "sortDataKeys": false,
+        "showMin": false,
+        "showMax": false,
+        "showAvg": false,
+        "showTotal": false
+      }
+    },
+    "row": 0,
+    "col": 0,
+    "id": "60cea650-7714-84ea-0bf0-76706ca0f01a"
+  },
+  "aliasesInfo": {
+    "datasourceAliases": {
+      "0": {
+        "alias": "ESP32",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "29fb8680-51d0-11ec-89c2-2f343e6c262d"
+          }
+        }
+      }
+    },
+    "targetDeviceAliases": {}
+  },
+  "filtersInfo": {
+    "datasourceFilters": {}
+  },
+  "originalSize": {
+    "sizeX": 8,
+    "sizeY": 6
+  },
+  "originalColumns": 24
+}

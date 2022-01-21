@@ -1,0 +1,276 @@
+{
+  "widget": {
+    "isSystemType": true,
+    "bundleAlias": "charts",
+    "typeAlias": "timeseries_bars_flot",
+    "type": "timeseries",
+    "title": "New widget",
+    "image": null,
+    "description": null,
+    "sizeX": 8,
+    "sizeY": 5,
+    "config": {
+      "datasources": [
+        {
+          "type": "entity",
+          "name": null,
+          "entityAliasId": "e018eaf6-7e15-5a2f-1d2e-93278702cb81",
+          "filterId": null,
+          "dataKeys": [
+            {
+              "name": "pH",
+              "type": "timeseries",
+              "label": "pH",
+              "color": "#2196f3",
+              "settings": {
+                "excludeFromStacking": false,
+                "hideDataByDefault": false,
+                "disableDataHiding": false,
+                "removeFromLegend": false,
+                "showLines": false,
+                "fillLines": false,
+                "showPoints": false,
+                "showPointShape": "circle",
+                "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                "showPointsLineWidth": 5,
+                "showPointsRadius": 3,
+                "showSeparateAxis": false,
+                "axisPosition": "left",
+                "thresholds": [
+                  {
+                    "thresholdValueSource": "predefinedValue"
+                  }
+                ],
+                "comparisonSettings": {
+                  "showValuesForComparison": true
+                }
+              },
+              "_hash": 0.5089637895122907,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return value/14;"
+            },
+            {
+              "name": "Electroconductividad",
+              "type": "timeseries",
+              "label": "Electroconductividad",
+              "color": "#4caf50",
+              "settings": {
+                "excludeFromStacking": false,
+                "hideDataByDefault": false,
+                "disableDataHiding": false,
+                "removeFromLegend": false,
+                "showLines": false,
+                "fillLines": false,
+                "showPoints": false,
+                "showPointShape": "circle",
+                "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                "showPointsLineWidth": 5,
+                "showPointsRadius": 3,
+                "showSeparateAxis": false,
+                "axisPosition": "left",
+                "thresholds": [
+                  {
+                    "thresholdValueSource": "predefinedValue"
+                  }
+                ],
+                "comparisonSettings": {
+                  "showValuesForComparison": true
+                }
+              },
+              "_hash": 0.03414960362242203,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return value/4000;"
+            },
+            {
+              "name": "TDS",
+              "type": "timeseries",
+              "label": "TDS",
+              "color": "#f44336",
+              "settings": {
+                "excludeFromStacking": false,
+                "hideDataByDefault": false,
+                "disableDataHiding": false,
+                "removeFromLegend": false,
+                "showLines": false,
+                "fillLines": false,
+                "showPoints": false,
+                "showPointShape": "circle",
+                "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                "showPointsLineWidth": 5,
+                "showPointsRadius": 3,
+                "showSeparateAxis": false,
+                "axisPosition": "left",
+                "thresholds": [
+                  {
+                    "thresholdValueSource": "predefinedValue"
+                  }
+                ],
+                "comparisonSettings": {
+                  "showValuesForComparison": true
+                }
+              },
+              "_hash": 0.2800384523682793,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return value/500;"
+            },
+            {
+              "name": "TemperaturaInterior",
+              "type": "timeseries",
+              "label": "TemperaturaInterior",
+              "color": "#ffc107",
+              "settings": {
+                "excludeFromStacking": false,
+                "hideDataByDefault": false,
+                "disableDataHiding": false,
+                "removeFromLegend": false,
+                "showLines": false,
+                "fillLines": false,
+                "showPoints": false,
+                "showPointShape": "circle",
+                "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                "showPointsLineWidth": 5,
+                "showPointsRadius": 3,
+                "showSeparateAxis": false,
+                "axisPosition": "left",
+                "thresholds": [
+                  {
+                    "thresholdValueSource": "predefinedValue"
+                  }
+                ],
+                "comparisonSettings": {
+                  "showValuesForComparison": true
+                }
+              },
+              "_hash": 0.614146568910747,
+              "units": null,
+              "decimals": null,
+              "funcBody": null,
+              "usePostProcessing": true,
+              "postFuncBody": "return value/40;"
+            }
+          ]
+        }
+      ],
+      "timewindow": {
+        "realtime": {
+          "timewindowMs": 60000
+        },
+        "aggregation": {
+          "limit": 200,
+          "type": "AVG"
+        }
+      },
+      "showTitle": false,
+      "backgroundColor": "#fff",
+      "color": "rgba(0, 0, 0, 0.87)",
+      "padding": "8px",
+      "settings": {
+        "shadowSize": 4,
+        "fontColor": "#545454",
+        "fontSize": 10,
+        "xaxis": {
+          "showLabels": true,
+          "color": "#545454"
+        },
+        "yaxis": {
+          "showLabels": true,
+          "color": "#545454"
+        },
+        "grid": {
+          "color": "#545454",
+          "tickColor": "#DDDDDD",
+          "verticalLines": true,
+          "horizontalLines": true,
+          "outlineWidth": 1
+        },
+        "stack": true,
+        "tooltipIndividual": false,
+        "defaultBarWidth": 600,
+        "barAlignment": "left",
+        "showTooltip": true,
+        "timeForComparison": "previousInterval",
+        "xaxisSecond": {
+          "axisPosition": "top",
+          "showLabels": true
+        },
+        "hideZeros": false
+      },
+      "title": "New Timeseries Bar Chart",
+      "dropShadow": true,
+      "enableFullscreen": true,
+      "titleStyle": {
+        "fontSize": "16px",
+        "fontWeight": 400
+      },
+      "widgetStyle": {},
+      "useDashboardTimewindow": true,
+      "showLegend": true,
+      "actions": {
+        "headerButton": [
+          {
+            "name": "Buscar por franja temporal",
+            "icon": "search",
+            "useShowWidgetActionFunction": null,
+            "showWidgetActionFunction": "return true;",
+            "type": "openDashboardState",
+            "targetDashboardStateId": "comparativa",
+            "setEntityId": true,
+            "stateEntityParamName": null,
+            "openRightLayout": false,
+            "openInSeparateDialog": false,
+            "openInPopover": false,
+            "id": "01199531-ed95-93e3-879f-17e83c4d1dd5"
+          }
+        ]
+      },
+      "showTitleIcon": false,
+      "enableDataExport": true,
+      "noDataDisplayMessage": "",
+      "legendConfig": {
+        "direction": "column",
+        "position": "bottom",
+        "sortDataKeys": false,
+        "showMin": false,
+        "showMax": false,
+        "showAvg": true,
+        "showTotal": false
+      }
+    },
+    "row": 0,
+    "col": 0,
+    "id": "8d60c3a0-8204-f2eb-265f-0c3fb10c6200"
+  },
+  "aliasesInfo": {
+    "datasourceAliases": {
+      "0": {
+        "alias": "ESP32",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "29fb8680-51d0-11ec-89c2-2f343e6c262d"
+          }
+        }
+      }
+    },
+    "targetDeviceAliases": {}
+  },
+  "filtersInfo": {
+    "datasourceFilters": {}
+  },
+  "originalSize": {
+    "sizeX": 15,
+    "sizeY": 6
+  },
+  "originalColumns": 24
+}

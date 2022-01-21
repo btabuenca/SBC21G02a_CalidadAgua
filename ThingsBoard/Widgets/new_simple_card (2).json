@@ -1,0 +1,109 @@
+{
+  "widget": {
+    "isSystemType": true,
+    "bundleAlias": "cards",
+    "typeAlias": "simple_card",
+    "type": "latest",
+    "title": "New widget",
+    "image": null,
+    "description": null,
+    "sizeX": 5,
+    "sizeY": 3,
+    "config": {
+      "datasources": [
+        {
+          "type": "entity",
+          "name": null,
+          "entityAliasId": "e018eaf6-7e15-5a2f-1d2e-93278702cb81",
+          "filterId": null,
+          "dataKeys": [
+            {
+              "name": "active",
+              "type": "attribute",
+              "label": "active",
+              "color": "#2196f3",
+              "settings": {},
+              "_hash": 0.4511103846236739
+            }
+          ]
+        }
+      ],
+      "timewindow": {
+        "realtime": {
+          "timewindowMs": 60000
+        }
+      },
+      "showTitle": false,
+      "backgroundColor": "#00cc26",
+      "color": "rgba(255, 255, 255, 0.87)",
+      "padding": "16px",
+      "settings": {
+        "labelPosition": "top"
+      },
+      "title": "New Simple card",
+      "dropShadow": true,
+      "enableFullscreen": true,
+      "titleStyle": {
+        "fontSize": "16px",
+        "fontWeight": 400
+      },
+      "units": "°C",
+      "decimals": 0,
+      "useDashboardTimewindow": true,
+      "showLegend": false,
+      "widgetStyle": {},
+      "actions": {
+        "headerButton": [
+          {
+            "name": "Informe de Actividad",
+            "icon": "multiline_chart",
+            "useShowWidgetActionFunction": null,
+            "showWidgetActionFunction": "return true;",
+            "type": "openDashboardState",
+            "targetDashboardStateId": "conectado",
+            "setEntityId": true,
+            "stateEntityParamName": null,
+            "openRightLayout": false,
+            "openInSeparateDialog": false,
+            "openInPopover": false,
+            "id": "ff5b638e-5ca7-a956-d9c2-41ab43440264"
+          }
+        ]
+      },
+      "showTitleIcon": false,
+      "titleTooltip": "",
+      "enableDataExport": true,
+      "noDataDisplayMessage": "",
+      "titleIcon": "done",
+      "iconColor": "rgba(0, 0, 0, 0.87)",
+      "iconSize": "24px"
+    },
+    "row": 0,
+    "col": 0,
+    "id": "a19317aa-3b3a-373b-1ebc-e1c6402d201b"
+  },
+  "aliasesInfo": {
+    "datasourceAliases": {
+      "0": {
+        "alias": "ESP32",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "29fb8680-51d0-11ec-89c2-2f343e6c262d"
+          }
+        }
+      }
+    },
+    "targetDeviceAliases": {}
+  },
+  "filtersInfo": {
+    "datasourceFilters": {}
+  },
+  "originalSize": {
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  "originalColumns": 24
+}

@@ -1,0 +1,106 @@
+{
+  "widget": {
+    "isSystemType": true,
+    "bundleAlias": "charts",
+    "typeAlias": "polar_area_chart_js",
+    "type": "latest",
+    "title": "New widget",
+    "image": null,
+    "description": null,
+    "sizeX": 7,
+    "sizeY": 5,
+    "config": {
+      "datasources": [
+        {
+          "type": "entity",
+          "name": null,
+          "entityAliasId": "e018eaf6-7e15-5a2f-1d2e-93278702cb81",
+          "filterId": null,
+          "dataKeys": [
+            {
+              "name": "TemperaturaExterior",
+              "type": "timeseries",
+              "label": "TemperaturaExterior",
+              "color": "#0d9f28",
+              "settings": {},
+              "_hash": 0.38021622635398655
+            },
+            {
+              "name": "TemperaturaInterior",
+              "type": "timeseries",
+              "label": "TemperaturaInterior",
+              "color": "#00deff",
+              "settings": {},
+              "_hash": 0.47357900451777857
+            }
+          ]
+        }
+      ],
+      "timewindow": {
+        "realtime": {
+          "timewindowMs": 60000
+        }
+      },
+      "showTitle": false,
+      "backgroundColor": "#fff",
+      "color": "rgba(0, 0, 0, 0.87)",
+      "padding": "8px",
+      "settings": {
+        "showTooltip": true
+      },
+      "title": "New Polar Area",
+      "showTitleIcon": false,
+      "dropShadow": true,
+      "enableFullscreen": false,
+      "enableDataExport": true,
+      "widgetStyle": {},
+      "noDataDisplayMessage": "",
+      "showLegend": false,
+      "actions": {
+        "headerButton": [
+          {
+            "name": "Informe",
+            "icon": "show_chart",
+            "useShowWidgetActionFunction": null,
+            "showWidgetActionFunction": "return true;",
+            "type": "openDashboardState",
+            "targetDashboardStateId": "temperatura",
+            "setEntityId": true,
+            "stateEntityParamName": null,
+            "openRightLayout": false,
+            "openInSeparateDialog": false,
+            "openInPopover": false,
+            "id": "e7baa790-44f7-e246-2c8a-7b542a09ce52"
+          }
+        ]
+      }
+    },
+    "row": 0,
+    "col": 0,
+    "id": "94616568-edda-2529-4feb-d9ad25069df3"
+  },
+  "aliasesInfo": {
+    "datasourceAliases": {
+      "0": {
+        "alias": "ESP32",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "29fb8680-51d0-11ec-89c2-2f343e6c262d"
+          }
+        }
+      }
+    },
+    "targetDeviceAliases": {}
+  },
+  "filtersInfo": {
+    "datasourceFilters": {}
+  },
+  "originalSize": {
+    "sizeX": 7,
+    "sizeY": 4
+  },
+  "originalColumns": 24
+}

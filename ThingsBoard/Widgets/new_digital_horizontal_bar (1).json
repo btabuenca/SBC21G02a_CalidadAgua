@@ -1,0 +1,163 @@
+{
+  "widget": {
+    "isSystemType": true,
+    "bundleAlias": "digital_gauges",
+    "typeAlias": "digital_bar",
+    "type": "latest",
+    "title": "New widget",
+    "image": null,
+    "description": null,
+    "sizeX": 6,
+    "sizeY": 2.5,
+    "config": {
+      "datasources": [
+        {
+          "type": "entity",
+          "name": null,
+          "entityAliasId": "e018eaf6-7e15-5a2f-1d2e-93278702cb81",
+          "filterId": null,
+          "dataKeys": [
+            {
+              "name": "pH",
+              "type": "timeseries",
+              "label": "pH",
+              "color": "#f4f5f5",
+              "settings": {},
+              "_hash": 0.9273735306005828
+            }
+          ]
+        }
+      ],
+      "timewindow": {
+        "realtime": {
+          "timewindowMs": 60000
+        }
+      },
+      "showTitle": false,
+      "backgroundColor": "#000000",
+      "color": "rgba(40,163,0,0.87)",
+      "padding": "0px",
+      "settings": {
+        "maxValue": 14,
+        "minValue": 0,
+        "donutStartAngle": 90,
+        "showValue": true,
+        "showMinMax": true,
+        "gaugeWidthScale": 1,
+        "levelColors": [
+          "#f80808",
+          "#fbb12d",
+          "#f4d936",
+          "#cdff06",
+          "#1dff00",
+          "#21a529",
+          "#05661b",
+          "#00eb9b",
+          "#00f5e0",
+          "#00bdff",
+          "#0092ff",
+          "#2a02ff",
+          "#8000ff",
+          "#cc00ff"
+        ],
+        "titleFont": {
+          "family": "Roboto",
+          "size": 12,
+          "style": "normal",
+          "weight": "500"
+        },
+        "labelFont": {
+          "family": "Roboto",
+          "size": 8,
+          "style": "normal",
+          "weight": "500"
+        },
+        "valueFont": {
+          "family": "Roboto",
+          "style": "normal",
+          "weight": "500",
+          "size": 18
+        },
+        "minMaxFont": {
+          "family": "Roboto",
+          "size": 12,
+          "style": "normal",
+          "weight": "500",
+          "color": "#ffffff"
+        },
+        "neonGlowBrightness": 40,
+        "showUnitTitle": false,
+        "gaugeColor": "#171a1c",
+        "gaugeType": "horizontalBar",
+        "showTitle": true,
+        "animation": true,
+        "animationDuration": 500,
+        "animationRule": "linear",
+        "timestampFormat": "yyyy-MM-dd HH:mm:ss",
+        "title": "pH",
+        "showTicks": true,
+        "tickWidth": 140,
+        "colorTicks": "#666",
+        "useFixedLevelColor": false,
+        "dashThickness": 1
+      },
+      "title": "New Digital horizontal bar",
+      "dropShadow": true,
+      "enableFullscreen": true,
+      "titleStyle": {
+        "fontSize": "16px",
+        "fontWeight": 400
+      },
+      "widgetStyle": {},
+      "useDashboardTimewindow": true,
+      "showLegend": false,
+      "actions": {
+        "headerButton": [
+          {
+            "name": "Informe",
+            "icon": "show_chart",
+            "useShowWidgetActionFunction": null,
+            "showWidgetActionFunction": "return true;",
+            "type": "openDashboardState",
+            "targetDashboardStateId": "ph",
+            "setEntityId": true,
+            "stateEntityParamName": null,
+            "openRightLayout": false,
+            "openInSeparateDialog": false,
+            "openInPopover": false,
+            "id": "1044a24b-b34e-1294-d21e-48757fbc5d11"
+          }
+        ]
+      },
+      "enableDataExport": true,
+      "noDataDisplayMessage": ""
+    },
+    "row": 0,
+    "col": 0,
+    "id": "f31ffdeb-9715-b3b1-1324-c2131cf1c839"
+  },
+  "aliasesInfo": {
+    "datasourceAliases": {
+      "0": {
+        "alias": "ESP32",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "29fb8680-51d0-11ec-89c2-2f343e6c262d"
+          }
+        }
+      }
+    },
+    "targetDeviceAliases": {}
+  },
+  "filtersInfo": {
+    "datasourceFilters": {}
+  },
+  "originalSize": {
+    "sizeX": 8,
+    "sizeY": 2
+  },
+  "originalColumns": 24
+}

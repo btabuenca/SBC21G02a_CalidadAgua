@@ -1,0 +1,17 @@
+
+
+
+Para poder utilizar FreeRouter desde Kicad, los pasos a seguir son los siguientes:
+
+1- Una vez posicionados los componentes en pcbnew, debe exportarse la sesión a un fichero especctra *.dsn.
+
+2- Debe entonces invocarse el shell script FreeRouter (empaquetado en freerouting-net-Linux-binary-2014-05-03.tar.gz).
+
+3- Pulsar el botón "open your own design" y selecinar el fichero dsn previamente salvado.
+
+4- Realizar las actividades de enrutado.
+
+5- Alterminar, salvar el resultado (Menú "File" -> Export Especctra Session File).
+
+6- Desde pcbnew, seleccionar la opción importar especctra session.
+ 
